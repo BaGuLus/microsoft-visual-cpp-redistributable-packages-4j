@@ -1,0 +1,1 @@
+rootProject.name = "Microsoft-Visual-CPP-Redistributable-Packages-for-Java"

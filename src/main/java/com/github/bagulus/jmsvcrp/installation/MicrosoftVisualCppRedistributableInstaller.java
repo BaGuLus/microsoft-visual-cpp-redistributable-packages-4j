@@ -1,7 +1,7 @@
 package com.github.bagulus.jmsvcrp.installation;
 
 
-import com.github.bagulus.jmsvcrp.model.MicrosoftVisualCppRedistributablePackage;
+import com.github.bagulus.jmsvcrp.model.MicrosoftVisualCppRedistributable;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,23 +13,23 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class MicrosoftVisualCppRedistributableInstaller {
-    private final MicrosoftVisualCppRedistributablePackage installedRedistributablePackage;
+    private final MicrosoftVisualCppRedistributable redistributable;
     private final Path downloadDirectory;
     private final Path installationFile;
 
 
     public MicrosoftVisualCppRedistributableInstaller(
-            MicrosoftVisualCppRedistributablePackage installedRedistributablePackage,
+            MicrosoftVisualCppRedistributable redistributable,
             Path downloadDirectory
     ) {
-        this.installedRedistributablePackage = installedRedistributablePackage;
+        this.redistributable = redistributable;
         this.downloadDirectory = downloadDirectory;
-        this.installationFile = downloadDirectory.resolve(installedRedistributablePackage.getName() + ".exe");
+        this.installationFile = downloadDirectory.resolve(redistributable.getName() + ".exe");
     }
 
     public long download() throws DownloadFailedException {
         try (
-                InputStream urlStream = installedRedistributablePackage.getDownloadUri().toURL().openStream();
+                InputStream urlStream = redistributable.getDownloadUri().toURL().openStream();
                 ReadableByteChannel readableByteChannel = Channels.newChannel(urlStream);
                 FileOutputStream fileOutputStream = new FileOutputStream(Files.createFile(installationFile).toFile())
         ) {
@@ -52,8 +52,8 @@ public class MicrosoftVisualCppRedistributableInstaller {
         }
     }
 
-    public MicrosoftVisualCppRedistributablePackage getInstalledRedistributablePackage() {
-        return installedRedistributablePackage;
+    public MicrosoftVisualCppRedistributable getRedistributable() {
+        return redistributable;
     }
 
     public Path getInstallationFile() {

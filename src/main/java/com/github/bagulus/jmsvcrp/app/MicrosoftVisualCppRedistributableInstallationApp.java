@@ -3,7 +3,7 @@ package com.github.bagulus.jmsvcrp.app;
 import com.github.bagulus.jmsvcrp.installation.DownloadFailedException;
 import com.github.bagulus.jmsvcrp.installation.InstallationFailedException;
 import com.github.bagulus.jmsvcrp.installation.MicrosoftVisualCppRedistributableInstaller;
-import com.github.bagulus.jmsvcrp.model.MicrosoftVisualCppRedistributablePackage;
+import com.github.bagulus.jmsvcrp.model.MicrosoftVisualCppRedistributable;
 
 import java.io.IOException;
 import java.net.URI;
@@ -30,19 +30,19 @@ import java.util.List;
 @SuppressWarnings("squid:S106")
 public class MicrosoftVisualCppRedistributableInstallationApp {
     private static final Path DOWNLOAD_DIRECTORY = Path.of(System.getProperty("user.home"), "Downloads", "vcredist-temp");
-    private static final List<MicrosoftVisualCppRedistributablePackage> MICROSOFT_VISUAL_CPP_REDISTRIBUTABLE_PACKAGES_TO_INSTALL = List.of(
-            MicrosoftVisualCppRedistributablePackage.X64_2005,
-            MicrosoftVisualCppRedistributablePackage.X86_2005,
-            MicrosoftVisualCppRedistributablePackage.X64_2008,
-            MicrosoftVisualCppRedistributablePackage.X86_2008,
-            MicrosoftVisualCppRedistributablePackage.X64_2010,
-            MicrosoftVisualCppRedistributablePackage.X86_2010,
-            MicrosoftVisualCppRedistributablePackage.X64_2012,
-            MicrosoftVisualCppRedistributablePackage.X86_2012,
-            MicrosoftVisualCppRedistributablePackage.X64_2013,
-            MicrosoftVisualCppRedistributablePackage.X86_2013,
-            MicrosoftVisualCppRedistributablePackage.X64_2015TO2022,
-            MicrosoftVisualCppRedistributablePackage.X86_2015TO2022
+    private static final List<MicrosoftVisualCppRedistributable> MICROSOFT_VISUAL_CPP_REDISTRIBUTABLE_TO_INSTALL = List.of(
+            MicrosoftVisualCppRedistributable.X64_2005,
+            MicrosoftVisualCppRedistributable.X86_2005,
+            MicrosoftVisualCppRedistributable.X64_2008,
+            MicrosoftVisualCppRedistributable.X86_2008,
+            MicrosoftVisualCppRedistributable.X64_2010,
+            MicrosoftVisualCppRedistributable.X86_2010,
+            MicrosoftVisualCppRedistributable.X64_2012,
+            MicrosoftVisualCppRedistributable.X86_2012,
+            MicrosoftVisualCppRedistributable.X64_2013,
+            MicrosoftVisualCppRedistributable.X86_2013,
+            MicrosoftVisualCppRedistributable.X64_2015TO2022,
+            MicrosoftVisualCppRedistributable.X86_2015TO2022
     );
 
     private static int downloadsSuccessful = 0;
@@ -56,20 +56,20 @@ public class MicrosoftVisualCppRedistributableInstallationApp {
     public static void run() {
         System.out.println(MessageFormat.format("""
                    |------------------------------------------------------------------------------------
-                ---| STARTED MICROSOFT VISUAL C++ REDISTRIBUTABLE PACKAGES INSTALLATION
+                ---| STARTED MICROSOFT VISUAL C++ REDISTRIBUTABLES INSTALLATION
                    | Start time: {0}
                 """, new Date()));
         try {
             deleteDownloadDirectory();
             Files.createDirectories(DOWNLOAD_DIRECTORY);
 
-            MICROSOFT_VISUAL_CPP_REDISTRIBUTABLE_PACKAGES_TO_INSTALL
+            MICROSOFT_VISUAL_CPP_REDISTRIBUTABLE_TO_INSTALL
                     .forEach(MicrosoftVisualCppRedistributableInstallationApp::perform);
 
-            int packagesToInstallCount = MICROSOFT_VISUAL_CPP_REDISTRIBUTABLE_PACKAGES_TO_INSTALL.size();
+            int redistributablesToInstallCount = MICROSOFT_VISUAL_CPP_REDISTRIBUTABLE_TO_INSTALL.size();
 
             System.out.println(MessageFormat.format("""
-                    ---| FINISHED MICROSOFT VISUAL C++ REDISTRIBUTABLE PACKAGES INSTALLATION
+                    ---| FINISHED MICROSOFT VISUAL C++ REDISTRIBUTABLES INSTALLATION
                        | Successfully downloaded files: {0}
                        | Successfully installed files: {1}
                        | Unsuccessfully downloaded files: {2}
@@ -77,15 +77,15 @@ public class MicrosoftVisualCppRedistributableInstallationApp {
                     """,
                     downloadsSuccessful,
                     installationsSuccessful,
-                    packagesToInstallCount - downloadsSuccessful,
-                    packagesToInstallCount - installationsSuccessful)
+                    redistributablesToInstallCount - downloadsSuccessful,
+                    redistributablesToInstallCount - installationsSuccessful)
             );
 
             deleteDownloadDirectory();
 
         } catch (IOException e) {
             System.out.println(MessageFormat.format("""
-                    ---| FINISHED MICROSOFT VISUAL C++ REDISTRIBUTABLE PACKAGES INSTALLATION WITH ERROR
+                    ---| FINISHED MICROSOFT VISUAL C++ REDISTRIBUTABLES INSTALLATION WITH ERROR
                        | Reason: {0}
                     """, e)
             );
@@ -98,7 +98,7 @@ public class MicrosoftVisualCppRedistributableInstallationApp {
         }
     }
 
-    private static void perform(MicrosoftVisualCppRedistributablePackage redistributablePackage) {
+    private static void perform(MicrosoftVisualCppRedistributable redistributablePackage) {
         String name = redistributablePackage.getName();
 
         if (redistributablePackage.isInstalled()) {
@@ -134,8 +134,8 @@ public class MicrosoftVisualCppRedistributableInstallationApp {
 
     private static void download(MicrosoftVisualCppRedistributableInstaller redistributableInstaller)
             throws DownloadFailedException {
-        String name = redistributableInstaller.getInstalledRedistributablePackage().getName();
-        URI downloadUri = redistributableInstaller.getInstalledRedistributablePackage().getDownloadUri();
+        String name = redistributableInstaller.getRedistributable().getName();
+        URI downloadUri = redistributableInstaller.getRedistributable().getDownloadUri();
         String installationFile = String.valueOf(redistributableInstaller.getInstallationFile());
 
         System.out.println(MessageFormat.format("""
@@ -158,7 +158,7 @@ public class MicrosoftVisualCppRedistributableInstallationApp {
 
     private static void install(MicrosoftVisualCppRedistributableInstaller redistributableInstaller)
             throws InstallationFailedException {
-        String name = redistributableInstaller.getInstalledRedistributablePackage().getName();
+        String name = redistributableInstaller.getRedistributable().getName();
         String installationFile = String.valueOf(redistributableInstaller.getInstallationFile());
 
         System.out.println(MessageFormat.format("""

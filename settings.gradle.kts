@@ -1,1 +1,1 @@
-rootProject.name = "Microsoft-Visual-CPP-Redistributable-Packages-for-Java"
+rootProject.name = "Microsoft-Visual-CPP-Redistributables-for-Java"

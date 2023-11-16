@@ -1,9 +1,9 @@
-package com.github.bagulus.jmsvcrp.app;
+package com.github.bagulus.msvcrj.app;
 
-import com.github.bagulus.jmsvcrp.installation.DownloadFailedException;
-import com.github.bagulus.jmsvcrp.installation.InstallationFailedException;
-import com.github.bagulus.jmsvcrp.installation.MicrosoftVisualCppRedistributableInstaller;
-import com.github.bagulus.jmsvcrp.model.MicrosoftVisualCppRedistributable;
+import com.github.bagulus.msvcrj.installation.DownloadFailedException;
+import com.github.bagulus.msvcrj.installation.InstallationFailedException;
+import com.github.bagulus.msvcrj.installation.MicrosoftVisualCppRedistributableInstaller;
+import com.github.bagulus.msvcrj.model.MicrosoftVisualCppRedistributable;
 
 import java.io.IOException;
 import java.net.URI;

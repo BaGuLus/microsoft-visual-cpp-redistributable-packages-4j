@@ -1,7 +1,7 @@
-package com.github.bagulus.jmsvcrp.installation;
+package com.github.bagulus.msvcrj.installation;
 
 
-import com.github.bagulus.jmsvcrp.model.MicrosoftVisualCppRedistributable;
+import com.github.bagulus.msvcrj.model.MicrosoftVisualCppRedistributable;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

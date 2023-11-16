@@ -1,6 +1,6 @@
-package com.github.bagulus.jmsvcrp.model;
+package com.github.bagulus.msvcrj.model;
 
-import com.github.bagulus.jmsvcrp.installation.InstallationCheckHandler;
+import com.github.bagulus.msvcrj.installation.InstallationCheckHandler;
 
 import java.net.URI;
 import java.text.MessageFormat;

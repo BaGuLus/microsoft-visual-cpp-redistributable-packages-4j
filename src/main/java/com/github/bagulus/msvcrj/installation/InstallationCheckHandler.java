@@ -1,4 +1,4 @@
-package com.github.bagulus.jmsvcrp.installation;
+package com.github.bagulus.msvcrj.installation;
 
 public interface InstallationCheckHandler {
     boolean isInstalled();

@@ -1,7 +1,7 @@
-package com.github.bagulus.jmsvcrp.model;
+package com.github.bagulus.msvcrj.model;
 
-import com.github.bagulus.jmsvcrp.installation.RegistryInstalledValueExistsInstallationCheckHandler;
-import com.github.bagulus.jmsvcrp.installation.RegistryKeyExistsInstallationCheckHandler;
+import com.github.bagulus.msvcrj.installation.RegistryInstalledValueExistsInstallationCheckHandler;
+import com.github.bagulus.msvcrj.installation.RegistryKeyExistsInstallationCheckHandler;
 import com.github.robtimus.os.windows.registry.RegistryKey;
 
 import java.net.URI;

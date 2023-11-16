@@ -45,6 +45,7 @@ public class MicrosoftVisualCppRedistributableInstallationApp {
             MicrosoftVisualCppRedistributable.X86_2015TO2022
     );
 
+    private static int installationsSkipped = 0;
     private static int downloadsSuccessful = 0;
     private static int installationsSuccessful = 0;
 
@@ -68,17 +69,22 @@ public class MicrosoftVisualCppRedistributableInstallationApp {
 
             int redistributablesToInstallCount = MICROSOFT_VISUAL_CPP_REDISTRIBUTABLE_TO_INSTALL.size();
 
+            int downloadsUnsuccessful = redistributablesToInstallCount - downloadsSuccessful - installationsSkipped;
+            int installationsUnsuccessful = redistributablesToInstallCount - installationsSuccessful - installationsSkipped;
+
             System.out.println(MessageFormat.format("""
                     ---| FINISHED MICROSOFT VISUAL C++ REDISTRIBUTABLES INSTALLATION
-                       | Successfully downloaded files: {0}
-                       | Successfully installed files: {1}
-                       | Unsuccessfully downloaded files: {2}
-                       | Unsuccessfully installed files: {3}
+                       | Installations skipped: {0}
+                       | Successfully downloaded files: {1}
+                       | Successfully installed files: {2}
+                       | Unsuccessfully downloaded files: {3}
+                       | Unsuccessfully installed files: {4}
                     """,
+                    installationsSkipped,
                     downloadsSuccessful,
                     installationsSuccessful,
-                    redistributablesToInstallCount - downloadsSuccessful,
-                    redistributablesToInstallCount - installationsSuccessful)
+                    downloadsUnsuccessful,
+                    installationsUnsuccessful)
             );
 
             deleteDownloadDirectory();
@@ -106,6 +112,8 @@ public class MicrosoftVisualCppRedistributableInstallationApp {
                        | SKIPPING {0} INSTALLATION
                        | Reason: The package is already installed
                     """, name));
+
+            installationsSkipped++;
             return;
         }
 

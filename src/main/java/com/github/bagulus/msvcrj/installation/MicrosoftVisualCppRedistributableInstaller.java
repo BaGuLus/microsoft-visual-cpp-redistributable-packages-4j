@@ -11,6 +11,7 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.MessageFormat;
 
 public class MicrosoftVisualCppRedistributableInstaller {
     private final MicrosoftVisualCppRedistributable redistributable;
@@ -46,7 +47,12 @@ public class MicrosoftVisualCppRedistributableInstaller {
                     .directory(downloadDirectory.toFile())
                     .command(String.valueOf(installationFile), "/q", "/norestart")
                     .start();
-            installProcess.waitFor();
+            int exitValue = installProcess.waitFor();
+            if (exitValue != 0) {
+                throw new InstallationFailedException(MessageFormat.format(
+                        "Install process ended with exit value {0}", exitValue)
+                );
+            }
         } catch (InterruptedException | IOException e) {
             throw new InstallationFailedException(e);
         }

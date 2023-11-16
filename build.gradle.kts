@@ -3,7 +3,7 @@ plugins {
     application
 }
 
-group = "com.github.bagulus.jmsvcrp"
+group = "com.github.bagulus.msvcrj"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -20,11 +20,11 @@ java {
 }
 
 application {
-    mainClass.set("com/github/bagulus/jmsvcrp/app/MicrosoftVisualCppRedistributableInstallationApp")
+    mainClass.set("com/github/bagulus/msvcrj/app/MicrosoftVisualCppRedistributableInstallationApp")
 }
 
 tasks.jar {
-    manifest.attributes["Main-Class"] = "com/github/bagulus/jmsvcrp/app/MicrosoftVisualCppRedistributableInstallationApp"
+    manifest.attributes["Main-Class"] = "com/github/bagulus/msvcrj/app/MicrosoftVisualCppRedistributableInstallationApp"
     val dependencies = configurations
             .runtimeClasspath
             .get()

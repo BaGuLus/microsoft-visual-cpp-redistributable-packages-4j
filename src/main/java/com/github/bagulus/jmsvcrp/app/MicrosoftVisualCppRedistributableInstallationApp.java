@@ -127,7 +127,6 @@ public class MicrosoftVisualCppRedistributableInstallationApp {
             System.out.println(MessageFormat.format("""
                        | FINISHED {0} INSTALLATION UNSUCCESSFULLY
                        | Reason: {1}
-                       |
                     """, name, e)
             );
         }
@@ -171,7 +170,6 @@ public class MicrosoftVisualCppRedistributableInstallationApp {
 
         System.out.println(MessageFormat.format("""
                       | FINISHED {0} INSTALLATION SUCCESSFULLY
-                      |
                    """, name)
         );
 

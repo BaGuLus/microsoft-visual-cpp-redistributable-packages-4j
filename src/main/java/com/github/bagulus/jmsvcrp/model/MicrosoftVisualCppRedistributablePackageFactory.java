@@ -6,6 +6,13 @@ import com.github.robtimus.os.windows.registry.RegistryKey;
 
 import java.net.URI;
 
+/**
+ * Factory class, which contains only static methods that return {@link MicrosoftVisualCppRedistributablePackage}
+ * objects for each version and processor architecture.
+ * <p><br>
+ * <a href="https://gist.github.com/ChuckMichael/7366c38f27e524add3c54f710678c98b">Download URIs</a>
+ * <a href="https://stackoverflow.com/questions/12206314/detect-if-visual-c-redistributable-for-visual-studio-2012-is-installed">Registry keys</a>
+ */
 class MicrosoftVisualCppRedistributablePackageFactory {
 
     private MicrosoftVisualCppRedistributablePackageFactory() {

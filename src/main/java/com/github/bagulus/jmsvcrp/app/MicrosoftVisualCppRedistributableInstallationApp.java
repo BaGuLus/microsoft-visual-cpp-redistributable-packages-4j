@@ -25,8 +25,7 @@ import java.util.List;
  *     <li>Starts the downloaded package installer in silent mode</li>
  * </ol>
  * Lastly the created download directory is completely removed.
- * <p><br>
- * <a href="https://gist.github.com/ChuckMichael/7366c38f27e524add3c54f710678c98b">List of download URIs for the packages</a>
+ * <p>
  */
 @SuppressWarnings("squid:S106")
 public class MicrosoftVisualCppRedistributableInstallationApp {

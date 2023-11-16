@@ -1,11 +1,16 @@
 package com.github.bagulus.msvcrj.model;
 
-import com.github.bagulus.msvcrj.installation.InstallationCheckHandler;
+import com.github.bagulus.msvcrj.install.InstallationCheckHandler;
 
 import java.net.URI;
 import java.text.MessageFormat;
 
-public class MicrosoftVisualCppRedistributable {
+public record MicrosoftVisualCppRedistributable(
+        Version version,
+        ProcessorArchitecture processorArchitecture,
+        DownloadInfo downloadInfo,
+        InstallationInfo installationInfo
+) {
     public static final MicrosoftVisualCppRedistributable X64_2005
             = MicrosoftVisualCppRedistributableFactory.get2005X64Package();
     public static final MicrosoftVisualCppRedistributable X86_2005
@@ -31,36 +36,14 @@ public class MicrosoftVisualCppRedistributable {
     public static final MicrosoftVisualCppRedistributable X86_2015TO2022
             = MicrosoftVisualCppRedistributableFactory.get2015to2022X86Package();
 
-    private final String name;
-    private final URI downloadUri;
-    private final InstallationCheckHandler installationCheckHandler;
-
-    MicrosoftVisualCppRedistributable(
-            Version version,
-            ProcessorArchitecture processorArchitecture,
-            URI downloadUri,
-            InstallationCheckHandler installationCheckHandler
-    ) {
-        this.name = MessageFormat.format(
+    @Override
+    public String toString() {
+        return MessageFormat.format(
                 "Microsoft Visual C++ {0} {1} Redistributable Package", version, processorArchitecture
         );
-        this.downloadUri = downloadUri;
-        this.installationCheckHandler = installationCheckHandler;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public URI getDownloadUri() {
-        return downloadUri;
-    }
-
-    public boolean isInstalled() {
-        return installationCheckHandler.isInstalled();
-    }
-
-    enum Version {
+    public enum Version {
         V2005,
         V2008,
         V2010,
@@ -74,8 +57,23 @@ public class MicrosoftVisualCppRedistributable {
         }
     }
 
-    enum ProcessorArchitecture {
+    public enum ProcessorArchitecture {
         X64,
         X86
+    }
+
+    public record DownloadInfo(
+            URI downloadUri
+    ) {
+    }
+
+    public record InstallationInfo(
+            String[] installationParameters,
+            InstallationCheckHandler installationCheckHandler
+    ) {
+        public static final String[] INSTALLATION_PARAMETERS_2005 = new String[] {"/Q"};
+        public static final String[] INSTALLATION_PARAMETERS_2008 = new String[] {"/q"};
+        public static final String[] INSTALLATION_PARAMETERS_2010 = new String[] {"/q", "/norestart"};
+        public static final String[] INSTALLATION_PARAMETERS_2012_PLUS = new String[] {"/install", "/quiet", "/norestart"};
     }
 }

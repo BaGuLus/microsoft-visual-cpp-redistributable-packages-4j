@@ -1,4 +1,4 @@
-package com.github.bagulus.msvcrj.installation;
+package com.github.bagulus.msvcrj.install;
 
 import com.github.robtimus.os.windows.registry.RegistryException;
 import com.github.robtimus.os.windows.registry.RegistryKey;

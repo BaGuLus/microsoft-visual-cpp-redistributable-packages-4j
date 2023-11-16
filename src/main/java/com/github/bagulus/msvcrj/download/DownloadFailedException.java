@@ -1,4 +1,4 @@
-package com.github.bagulus.msvcrj.installation;
+package com.github.bagulus.msvcrj.download;
 
 public class DownloadFailedException extends Exception {
     public DownloadFailedException() {

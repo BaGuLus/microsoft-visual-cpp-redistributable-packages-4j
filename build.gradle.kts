@@ -20,11 +20,11 @@ java {
 }
 
 application {
-    mainClass.set("com/github/bagulus/msvcrj/app/MicrosoftVisualCppRedistributableInstallationApp")
+    mainClass.set("com/github/bagulus/msvcrj/app/MicrosoftVisualCppRedistributableDeploymentApp")
 }
 
 tasks.jar {
-    manifest.attributes["Main-Class"] = "com/github/bagulus/msvcrj/app/MicrosoftVisualCppRedistributableInstallationApp"
+    manifest.attributes["Main-Class"] = "com/github/bagulus/msvcrj/app/MicrosoftVisualCppRedistributableDeploymentApp"
     val dependencies = configurations
             .runtimeClasspath
             .get()

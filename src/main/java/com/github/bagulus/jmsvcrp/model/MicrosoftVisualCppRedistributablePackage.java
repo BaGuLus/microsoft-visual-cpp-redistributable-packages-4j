@@ -6,10 +6,26 @@ import java.net.URI;
 import java.text.MessageFormat;
 
 public class MicrosoftVisualCppRedistributablePackage {
+    public static final MicrosoftVisualCppRedistributablePackage X64_2005
+            = MicrosoftVisualCppRedistributablePackageFactory.get2005X64Package();
+    public static final MicrosoftVisualCppRedistributablePackage X86_2005
+            = MicrosoftVisualCppRedistributablePackageFactory.get2005X86Package();
     public static final MicrosoftVisualCppRedistributablePackage X64_2008
             = MicrosoftVisualCppRedistributablePackageFactory.get2008X64Package();
     public static final MicrosoftVisualCppRedistributablePackage X86_2008
             = MicrosoftVisualCppRedistributablePackageFactory.get2008X86Package();
+    public static final MicrosoftVisualCppRedistributablePackage X64_2010
+            = MicrosoftVisualCppRedistributablePackageFactory.get2010X64Package();
+    public static final MicrosoftVisualCppRedistributablePackage X86_2010
+            = MicrosoftVisualCppRedistributablePackageFactory.get2010X86Package();
+    public static final MicrosoftVisualCppRedistributablePackage X64_2012
+            = MicrosoftVisualCppRedistributablePackageFactory.get2012X64Package();
+    public static final MicrosoftVisualCppRedistributablePackage X86_2012
+            = MicrosoftVisualCppRedistributablePackageFactory.get2012X86Package();
+    public static final MicrosoftVisualCppRedistributablePackage X64_2013
+            = MicrosoftVisualCppRedistributablePackageFactory.get2013X64Package();
+    public static final MicrosoftVisualCppRedistributablePackage X86_2013
+            = MicrosoftVisualCppRedistributablePackageFactory.get2013X86Package();
     public static final MicrosoftVisualCppRedistributablePackage X64_2015TO2022
             = MicrosoftVisualCppRedistributablePackageFactory.get2015to2022X64Package();
     public static final MicrosoftVisualCppRedistributablePackage X86_2015TO2022
@@ -45,7 +61,11 @@ public class MicrosoftVisualCppRedistributablePackage {
     }
 
     enum Version {
+        V2005,
         V2008,
+        V2010,
+        V2012,
+        V2013,
         V2015_2022;
 
         @Override

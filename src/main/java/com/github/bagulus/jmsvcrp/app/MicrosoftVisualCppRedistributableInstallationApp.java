@@ -32,8 +32,16 @@ import java.util.List;
 public class MicrosoftVisualCppRedistributableInstallationApp {
     private static final Path DOWNLOAD_DIRECTORY = Path.of(System.getProperty("user.home"), "Downloads", "vcredist-temp");
     private static final List<MicrosoftVisualCppRedistributablePackage> MICROSOFT_VISUAL_CPP_REDISTRIBUTABLE_PACKAGES_TO_INSTALL = List.of(
+            MicrosoftVisualCppRedistributablePackage.X64_2005,
+            MicrosoftVisualCppRedistributablePackage.X86_2005,
             MicrosoftVisualCppRedistributablePackage.X64_2008,
             MicrosoftVisualCppRedistributablePackage.X86_2008,
+            MicrosoftVisualCppRedistributablePackage.X64_2010,
+            MicrosoftVisualCppRedistributablePackage.X86_2010,
+            MicrosoftVisualCppRedistributablePackage.X64_2012,
+            MicrosoftVisualCppRedistributablePackage.X86_2012,
+            MicrosoftVisualCppRedistributablePackage.X64_2013,
+            MicrosoftVisualCppRedistributablePackage.X86_2013,
             MicrosoftVisualCppRedistributablePackage.X64_2015TO2022,
             MicrosoftVisualCppRedistributablePackage.X86_2015TO2022
     );

@@ -7,6 +7,8 @@ import com.github.bagulus.msvcrj.install.InstallationFailedException;
 import com.github.bagulus.msvcrj.install.Installer;
 import com.github.bagulus.msvcrj.install.MicrosoftVisualCppRedistributableInstaller;
 import com.github.bagulus.msvcrj.model.MicrosoftVisualCppRedistributable;
+import com.github.bagulus.msvcrj.model.ProcessorArchitecture;
+import com.github.bagulus.msvcrj.model.Version;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.FileVisitResult;
@@ -213,8 +215,8 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
     }
 
     private static Path createFileName(
-        MicrosoftVisualCppRedistributable.Version version,
-        MicrosoftVisualCppRedistributable.ProcessorArchitecture processorArchitecture
+        Version version,
+        ProcessorArchitecture processorArchitecture
     ) {
         final String DELIMITER = "-";
         return Path.of("vc-redistributable"

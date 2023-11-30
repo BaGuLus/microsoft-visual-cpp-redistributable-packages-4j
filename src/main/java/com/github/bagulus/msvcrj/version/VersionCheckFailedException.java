@@ -1,6 +1,7 @@
 package com.github.bagulus.msvcrj.version;
 
 public class VersionCheckFailedException extends Exception {
+
     public VersionCheckFailedException() {
         super();
     }

@@ -1,6 +1,5 @@
 package com.github.bagulus.msvcrj.version;
 
-import com.github.robtimus.os.windows.registry.RegistryException;
 import com.github.robtimus.os.windows.registry.RegistryKey;
 
 public class MultipleDWordRegistryVersionCheckHandler extends DWordRegistryVersionCheckHandler {
@@ -16,7 +15,6 @@ public class MultipleDWordRegistryVersionCheckHandler extends DWordRegistryVersi
         this.build = findValue(registryKey, "Bld");
         this.rbuild = findValue(registryKey, "Rbld");
     }
-
 
 
     @Override

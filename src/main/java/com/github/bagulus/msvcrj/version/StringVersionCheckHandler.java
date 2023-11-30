@@ -1,6 +1,7 @@
 package com.github.bagulus.msvcrj.version;
 
 public class StringVersionCheckHandler implements VersionCheckHandler {
+
     private final int major;
     private final int minor;
     private final int build;

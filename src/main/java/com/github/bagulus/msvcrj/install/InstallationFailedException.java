@@ -1,6 +1,7 @@
 package com.github.bagulus.msvcrj.install;
 
 public class InstallationFailedException extends Exception {
+
     public InstallationFailedException() {
         super();
     }

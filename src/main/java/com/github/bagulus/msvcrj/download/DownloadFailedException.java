@@ -1,6 +1,7 @@
 package com.github.bagulus.msvcrj.download;
 
 public class DownloadFailedException extends Exception {
+
     public DownloadFailedException() {
         super();
     }

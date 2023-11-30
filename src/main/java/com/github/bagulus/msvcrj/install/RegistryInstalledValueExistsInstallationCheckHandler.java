@@ -4,7 +4,7 @@ import com.github.robtimus.os.windows.registry.RegistryException;
 import com.github.robtimus.os.windows.registry.RegistryKey;
 
 public record RegistryInstalledValueExistsInstallationCheckHandler(RegistryKey registryKey)
-        implements InstallationCheckHandler {
+    implements InstallationCheckHandler {
 
     @Override
     public boolean isInstalled() {

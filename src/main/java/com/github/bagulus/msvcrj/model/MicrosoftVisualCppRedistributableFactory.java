@@ -7,7 +7,7 @@ import static com.github.bagulus.msvcrj.model.InstallationInfo.INSTALLATION_PARA
 import static com.github.bagulus.msvcrj.model.InstallationInfo.INSTALLATION_PARAMETERS_2013;
 import static com.github.bagulus.msvcrj.model.InstallationInfo.INSTALLATION_PARAMETERS_2015PLUS;
 
-import com.github.bagulus.msvcrj.install.RegistryInstalledValueExistsInstallationCheckHandler;
+import com.github.bagulus.msvcrj.install.RegistryInstalledValueSetInstallationCheckHandler;
 import com.github.bagulus.msvcrj.install.RegistryKeyExistsInstallationCheckHandler;
 import com.github.bagulus.msvcrj.version.FailedVersionCheckHandler;
 import com.github.bagulus.msvcrj.version.MultipleDWordRegistryVersionCheckHandler;
@@ -315,7 +315,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
         InstallationInfo installationInfo = new InstallationInfo(
             INSTALLATION_PARAMETERS_2015PLUS,
-            new RegistryInstalledValueExistsInstallationCheckHandler(registryKey),
+            new RegistryInstalledValueSetInstallationCheckHandler(registryKey),
             createVersionCheckHandler(MultipleDWordRegistryVersionCheckHandler.class, registryKey)
         );
 
@@ -341,7 +341,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
         InstallationInfo installationInfo = new InstallationInfo(
             INSTALLATION_PARAMETERS_2015PLUS,
-            new RegistryInstalledValueExistsInstallationCheckHandler(registryKey),
+            new RegistryInstalledValueSetInstallationCheckHandler(registryKey),
             createVersionCheckHandler(MultipleDWordRegistryVersionCheckHandler.class, registryKey)
         );
 

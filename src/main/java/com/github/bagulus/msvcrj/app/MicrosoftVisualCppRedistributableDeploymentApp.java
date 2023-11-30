@@ -47,8 +47,8 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
         MicrosoftVisualCppRedistributable.X86_2012,
         MicrosoftVisualCppRedistributable.X64_2013,
         MicrosoftVisualCppRedistributable.X86_2013,
-        MicrosoftVisualCppRedistributable.X64_2015TO2022,
-        MicrosoftVisualCppRedistributable.X86_2015TO2022
+        MicrosoftVisualCppRedistributable.X64_2015PLUS,
+        MicrosoftVisualCppRedistributable.X86_2015PLUS
     );
 
     private static int deploymentsSkipped = 0;

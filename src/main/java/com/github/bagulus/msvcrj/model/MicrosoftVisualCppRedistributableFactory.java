@@ -301,9 +301,9 @@ class MicrosoftVisualCppRedistributableFactory {
         );
     }
 
-    static MicrosoftVisualCppRedistributable get2015to2022X64Package() {
+    static MicrosoftVisualCppRedistributable get2015PlusX64Package() {
 
-        Version version = Version.V2015_2022;
+        Version version = Version.V2015PLUS;
         ProcessorArchitecture processorArchitecture = ProcessorArchitecture.X64;
 
         DownloadInfo downloadInfo = new DownloadInfo(
@@ -327,9 +327,9 @@ class MicrosoftVisualCppRedistributableFactory {
         );
     }
 
-    static MicrosoftVisualCppRedistributable get2015to2022X86Package() {
+    static MicrosoftVisualCppRedistributable get2015PlusX86Package() {
 
-        Version version = Version.V2015_2022;
+        Version version = Version.V2015PLUS;
         ProcessorArchitecture processorArchitecture = ProcessorArchitecture.X86;
 
         DownloadInfo downloadInfo = new DownloadInfo(

@@ -29,10 +29,10 @@ public record MicrosoftVisualCppRedistributable(
         = MicrosoftVisualCppRedistributableFactory.get2013X64Package();
     public static final MicrosoftVisualCppRedistributable X86_2013
         = MicrosoftVisualCppRedistributableFactory.get2013X86Package();
-    public static final MicrosoftVisualCppRedistributable X64_2015TO2022
-        = MicrosoftVisualCppRedistributableFactory.get2015to2022X64Package();
-    public static final MicrosoftVisualCppRedistributable X86_2015TO2022
-        = MicrosoftVisualCppRedistributableFactory.get2015to2022X86Package();
+    public static final MicrosoftVisualCppRedistributable X64_2015PLUS
+        = MicrosoftVisualCppRedistributableFactory.get2015PlusX64Package();
+    public static final MicrosoftVisualCppRedistributable X86_2015PLUS
+        = MicrosoftVisualCppRedistributableFactory.get2015PlusX86Package();
 
     @Override
     public String toString() {

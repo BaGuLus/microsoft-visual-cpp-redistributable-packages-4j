@@ -6,7 +6,7 @@ package com.github.bagulus.msvcrj.model;
         V2010,
         V2012,
         V2013,
-        V2015_2022;
+        V2015PLUS;
 
         @Override
         public String toString() {

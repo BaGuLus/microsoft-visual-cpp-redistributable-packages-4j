@@ -3,7 +3,9 @@ package com.github.bagulus.msvcrj.model;
 import static com.github.bagulus.msvcrj.model.InstallationInfo.INSTALLATION_PARAMETERS_2005;
 import static com.github.bagulus.msvcrj.model.InstallationInfo.INSTALLATION_PARAMETERS_2008;
 import static com.github.bagulus.msvcrj.model.InstallationInfo.INSTALLATION_PARAMETERS_2010;
-import static com.github.bagulus.msvcrj.model.InstallationInfo.INSTALLATION_PARAMETERS_2012_PLUS;
+import static com.github.bagulus.msvcrj.model.InstallationInfo.INSTALLATION_PARAMETERS_2012;
+import static com.github.bagulus.msvcrj.model.InstallationInfo.INSTALLATION_PARAMETERS_2013;
+import static com.github.bagulus.msvcrj.model.InstallationInfo.INSTALLATION_PARAMETERS_2015PLUS;
 
 import com.github.bagulus.msvcrj.install.RegistryInstalledValueExistsInstallationCheckHandler;
 import com.github.bagulus.msvcrj.install.RegistryKeyExistsInstallationCheckHandler;
@@ -207,7 +209,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\Classes\\Installer\\Dependencies\\{ca67548a-5ebe-413a-b50c-4b9ceb6d66c6}");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            INSTALLATION_PARAMETERS_2012_PLUS,
+            INSTALLATION_PARAMETERS_2012,
             new RegistryKeyExistsInstallationCheckHandler(registryKey),
             createVersionCheckHandler(VersionRegistryVersionCheckHandler.class, registryKey)
         );
@@ -234,7 +236,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\Classes\\Installer\\Dependencies\\{33d1fd90-4274-48a1-9bc1-97e33d9c2d6f}");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            INSTALLATION_PARAMETERS_2012_PLUS,
+            INSTALLATION_PARAMETERS_2012,
             new RegistryKeyExistsInstallationCheckHandler(registryKey),
             createVersionCheckHandler(VersionRegistryVersionCheckHandler.class, registryKey)
         );
@@ -260,7 +262,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\Classes\\Installer\\Dependencies\\{042d26ef-3dbe-4c25-95d3-4c1b11b235a7}");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            INSTALLATION_PARAMETERS_2012_PLUS,
+            INSTALLATION_PARAMETERS_2013,
             new RegistryKeyExistsInstallationCheckHandler(registryKey),
             createVersionCheckHandler(VersionRegistryVersionCheckHandler.class, registryKey)
         );
@@ -286,7 +288,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\Classes\\Installer\\Dependencies\\{9dff3540-fc85-4ed5-ac84-9e3c7fd8bece}");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            INSTALLATION_PARAMETERS_2012_PLUS,
+            INSTALLATION_PARAMETERS_2013,
             new RegistryKeyExistsInstallationCheckHandler(registryKey),
             createVersionCheckHandler(VersionRegistryVersionCheckHandler.class, registryKey)
         );
@@ -312,7 +314,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            INSTALLATION_PARAMETERS_2012_PLUS,
+            INSTALLATION_PARAMETERS_2015PLUS,
             new RegistryInstalledValueExistsInstallationCheckHandler(registryKey),
             createVersionCheckHandler(MultipleDWordRegistryVersionCheckHandler.class, registryKey)
         );
@@ -338,7 +340,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x86");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            INSTALLATION_PARAMETERS_2012_PLUS,
+            INSTALLATION_PARAMETERS_2015PLUS,
             new RegistryInstalledValueExistsInstallationCheckHandler(registryKey),
             createVersionCheckHandler(MultipleDWordRegistryVersionCheckHandler.class, registryKey)
         );

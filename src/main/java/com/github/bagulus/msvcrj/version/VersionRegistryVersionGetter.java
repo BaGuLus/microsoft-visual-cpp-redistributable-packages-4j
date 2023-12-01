@@ -27,9 +27,9 @@ package com.github.bagulus.msvcrj.version;
 import com.github.robtimus.os.windows.registry.RegistryException;
 import com.github.robtimus.os.windows.registry.RegistryKey;
 
-public class VersionRegistryVersionCheckHandler extends StringVersionCheckHandler {
+public class VersionRegistryVersionGetter extends StringVersionGetter {
 
-    public VersionRegistryVersionCheckHandler(RegistryKey registryKey) throws VersionCheckFailedException {
+    public VersionRegistryVersionGetter(RegistryKey registryKey) throws VersionCheckFailedException {
         super(getVersionString(registryKey));
     }
 

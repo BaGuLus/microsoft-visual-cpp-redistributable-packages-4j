@@ -25,14 +25,14 @@
 package com.github.bagulus.msvcrj.model;
 
 import com.github.bagulus.msvcrj.install.InstallationCheckHandler;
-import com.github.bagulus.msvcrj.version.VersionCheckHandler;
+import com.github.bagulus.msvcrj.version.VersionGetter;
 import java.util.Arrays;
 import java.util.Objects;
 
 public record InstallationInfo(
     String[] installationParameters,
     InstallationCheckHandler installationCheckHandler,
-    VersionCheckHandler versionCheckHandler
+    VersionGetter versionGetter
 ) {
 
     public static final String[] INSTALLATION_PARAMETERS_2005 = new String[]{"/Q"};
@@ -52,13 +52,13 @@ public record InstallationInfo(
         }
         InstallationInfo that = (InstallationInfo) o;
         return Arrays.equals(installationParameters, that.installationParameters) && Objects.equals(
-            installationCheckHandler, that.installationCheckHandler) && Objects.equals(versionCheckHandler,
-            that.versionCheckHandler);
+            installationCheckHandler, that.installationCheckHandler) && Objects.equals(versionGetter,
+            that.versionGetter);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(installationCheckHandler, versionCheckHandler);
+        int result = Objects.hash(installationCheckHandler, versionGetter);
         result = 31 * result + Arrays.hashCode(installationParameters);
         return result;
     }
@@ -68,7 +68,7 @@ public record InstallationInfo(
         return "InstallationInfo{" +
             "installationParameters=" + Arrays.toString(installationParameters) +
             ", installationCheckHandler=" + installationCheckHandler +
-            ", versionCheckHandler=" + versionCheckHandler +
+            ", versionGetter=" + versionGetter +
             '}';
     }
 }

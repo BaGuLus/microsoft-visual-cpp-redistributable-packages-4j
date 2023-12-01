@@ -22,42 +22,32 @@
  * SOFTWARE.
  */
 
-package com.github.bagulus.msvcrj.version;
+package com.github.bagulus.msvcrj.model;
 
-public class FailedVersionCheckHandler implements VersionCheckHandler {
+import java.util.regex.Pattern;
 
-    private final String message;
-
-    public FailedVersionCheckHandler(String message) {
-        this.message = message;
+public record Version(
+    int major,
+    int minor,
+    int build,
+    int rbuild
+) {
+    public Version(int build) {
+        this(-1, -1, build, -1);
     }
 
-    public FailedVersionCheckHandler(Throwable cause) {
-        this(cause.getMessage());
-    }
+    /**
+     * Matches values in format "{@code MAJOR.MINOR.BUILD}" or "{@code MAJOR.MINOR.BUILD.RBUILD}".
+     */
+    public static final Pattern REGEX = Pattern.compile("^(\\d+\\.){2}(\\d+)(\\.\\d+)?$");
+
+    /**
+     *
+     */
+    public static final Version ERROR_VERSION = new Version(-1);
 
     @Override
-    public int getMajor() {
-        throw new UnsupportedOperationException("Cannot get the Major number with this handler");
-    }
-
-    @Override
-    public int getMinor() {
-        throw new UnsupportedOperationException("Cannot get the Minor number with this handler");
-    }
-
-    @Override
-    public int getBuild() {
-        throw new UnsupportedOperationException("Cannot get the Build number with this handler");
-    }
-
-    @Override
-    public int getRBuild() {
-        throw new UnsupportedOperationException("Cannot get the Major number with this handler");
-    }
-
-    @Override
-    public String getVersion() {
-        return "The version couldn't be determined. Cause: " + message;
+    public String toString() {
+        return major + "." + minor + "." + build + "." + rbuild;
     }
 }

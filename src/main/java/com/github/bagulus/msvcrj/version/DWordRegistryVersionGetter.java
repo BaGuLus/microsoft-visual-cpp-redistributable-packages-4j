@@ -24,15 +24,16 @@
 
 package com.github.bagulus.msvcrj.version;
 
-public interface VersionCheckHandler {
+import com.github.robtimus.os.windows.registry.RegistryException;
+import com.github.robtimus.os.windows.registry.RegistryKey;
 
-    int getMajor();
+abstract class DWordRegistryVersionGetter implements VersionGetter {
 
-    int getMinor();
-
-    int getBuild();
-
-    int getRBuild();
-
-    String getVersion();
+    protected int findValue(RegistryKey registryKey, String value) throws VersionCheckFailedException {
+        try {
+            return registryKey.getDWordValue(value);
+        } catch (RegistryException e) {
+            throw new VersionCheckFailedException("Unable to find value in registry", e);
+        }
+    }
 }

@@ -32,7 +32,7 @@ import com.github.bagulus.msvcrj.install.Installer;
 import com.github.bagulus.msvcrj.install.MicrosoftVisualCppRedistributableInstaller;
 import com.github.bagulus.msvcrj.model.MicrosoftVisualCppRedistributable;
 import com.github.bagulus.msvcrj.model.ProcessorArchitecture;
-import com.github.bagulus.msvcrj.model.Version;
+import com.github.bagulus.msvcrj.model.Release;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.FileVisitResult;
@@ -95,7 +95,7 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
             Files.createDirectories(DOWNLOAD_DIRECTORY);
 
             for (MicrosoftVisualCppRedistributable redistributable : MICROSOFT_VISUAL_CPP_REDISTRIBUTABLE_TO_INSTALL) {
-                Path fileName = createFileName(redistributable.version(), redistributable.processorArchitecture());
+                Path fileName = createFileName(redistributable.release(), redistributable.processorArchitecture());
                 deploy(redistributable, fileName, DOWNLOAD_DIRECTORY);
             }
 
@@ -239,13 +239,13 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
     }
 
     private static Path createFileName(
-        Version version,
+        Release release,
         ProcessorArchitecture processorArchitecture
     ) {
         final String DELIMITER = "-";
         return Path.of("vc-redistributable"
             .concat(DELIMITER)
-            .concat(String.valueOf(version))
+            .concat(String.valueOf(release))
             .concat(DELIMITER)
             .concat(String.valueOf(processorArchitecture))
             .concat(".exe"));

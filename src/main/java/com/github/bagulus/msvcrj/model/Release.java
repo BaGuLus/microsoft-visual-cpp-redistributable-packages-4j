@@ -24,16 +24,16 @@
 
 package com.github.bagulus.msvcrj.model;
 
-    public enum Version {
-        V2005,
-        V2008,
-        V2010,
-        V2012,
-        V2013,
-        V2015PLUS;
+    public enum Release {
+        Y2005,
+        Y2008,
+        Y2010,
+        Y2012,
+        Y2013,
+        Y2015PLUS;
 
         @Override
         public String toString() {
-            return name().substring(1).replace("_", "-");
+            return name().substring(1).replace("PLUS", "+");
         }
     }

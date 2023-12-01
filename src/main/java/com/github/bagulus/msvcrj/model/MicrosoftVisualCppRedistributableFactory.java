@@ -59,7 +59,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
     static MicrosoftVisualCppRedistributable get2005X64Package() {
 
-        Version version = Version.V2005;
+        Release release = Release.Y2005;
         ProcessorArchitecture processorArchitecture = ProcessorArchitecture.X64;
 
         DownloadInfo downloadInfo = new DownloadInfo(
@@ -77,7 +77,7 @@ class MicrosoftVisualCppRedistributableFactory {
         );
 
         return new MicrosoftVisualCppRedistributable(
-            version,
+            release,
             processorArchitecture,
             downloadInfo,
             installationInfo
@@ -86,7 +86,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
     static MicrosoftVisualCppRedistributable get2005X86Package() {
 
-        Version version = Version.V2005;
+        Release release = Release.Y2005;
         ProcessorArchitecture processorArchitecture = ProcessorArchitecture.X86;
 
         DownloadInfo downloadInfo = new DownloadInfo(
@@ -104,7 +104,7 @@ class MicrosoftVisualCppRedistributableFactory {
         );
 
         return new MicrosoftVisualCppRedistributable(
-            version,
+            release,
             processorArchitecture,
             downloadInfo,
             installationInfo
@@ -113,7 +113,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
     static MicrosoftVisualCppRedistributable get2008X64Package() {
 
-        Version version = Version.V2008;
+        Release release = Release.Y2008;
         ProcessorArchitecture processorArchitecture = ProcessorArchitecture.X64;
 
         DownloadInfo downloadInfo = new DownloadInfo(
@@ -131,7 +131,7 @@ class MicrosoftVisualCppRedistributableFactory {
         );
 
         return new MicrosoftVisualCppRedistributable(
-            version,
+            release,
             processorArchitecture,
             downloadInfo,
             installationInfo
@@ -140,7 +140,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
     static MicrosoftVisualCppRedistributable get2008X86Package() {
 
-        Version version = Version.V2008;
+        Release release = Release.Y2008;
         ProcessorArchitecture processorArchitecture = ProcessorArchitecture.X86;
 
         DownloadInfo downloadInfo = new DownloadInfo(
@@ -158,7 +158,7 @@ class MicrosoftVisualCppRedistributableFactory {
         );
 
         return new MicrosoftVisualCppRedistributable(
-            version,
+            release,
             processorArchitecture,
             downloadInfo,
             installationInfo
@@ -167,7 +167,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
     static MicrosoftVisualCppRedistributable get2010X64Package() {
 
-        Version version = Version.V2010;
+        Release release = Release.Y2010;
         ProcessorArchitecture processorArchitecture = ProcessorArchitecture.X64;
 
         DownloadInfo downloadInfo = new DownloadInfo(
@@ -185,7 +185,7 @@ class MicrosoftVisualCppRedistributableFactory {
         );
 
         return new MicrosoftVisualCppRedistributable(
-            version,
+            release,
             processorArchitecture,
             downloadInfo,
             installationInfo
@@ -194,7 +194,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
     static MicrosoftVisualCppRedistributable get2010X86Package() {
 
-        Version version = Version.V2010;
+        Release release = Release.Y2010;
         ProcessorArchitecture processorArchitecture = ProcessorArchitecture.X86;
 
         DownloadInfo downloadInfo = new DownloadInfo(
@@ -212,7 +212,7 @@ class MicrosoftVisualCppRedistributableFactory {
         );
 
         return new MicrosoftVisualCppRedistributable(
-            version,
+            release,
             processorArchitecture,
             downloadInfo,
             installationInfo
@@ -221,7 +221,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
     static MicrosoftVisualCppRedistributable get2012X64Package() {
 
-        Version version = Version.V2012;
+        Release release = Release.Y2012;
         ProcessorArchitecture processorArchitecture = ProcessorArchitecture.X64;
 
         DownloadInfo downloadInfo = new DownloadInfo(
@@ -239,7 +239,7 @@ class MicrosoftVisualCppRedistributableFactory {
         );
 
         return new MicrosoftVisualCppRedistributable(
-            version,
+            release,
             processorArchitecture,
             downloadInfo,
             installationInfo
@@ -248,7 +248,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
     static MicrosoftVisualCppRedistributable get2012X86Package() {
 
-        Version version = Version.V2012;
+        Release release = Release.Y2012;
         ProcessorArchitecture processorArchitecture = ProcessorArchitecture.X86;
 
         DownloadInfo downloadInfo = new DownloadInfo(
@@ -266,7 +266,7 @@ class MicrosoftVisualCppRedistributableFactory {
         );
 
         return new MicrosoftVisualCppRedistributable(
-            version,
+            release,
             processorArchitecture,
             downloadInfo,
             installationInfo
@@ -275,7 +275,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
     static MicrosoftVisualCppRedistributable get2013X64Package() {
 
-        Version version = Version.V2013;
+        Release release = Release.Y2013;
         ProcessorArchitecture processorArchitecture = ProcessorArchitecture.X64;
 
         DownloadInfo downloadInfo = new DownloadInfo(
@@ -292,7 +292,7 @@ class MicrosoftVisualCppRedistributableFactory {
         );
 
         return new MicrosoftVisualCppRedistributable(
-            version,
+            release,
             processorArchitecture,
             downloadInfo,
             installationInfo
@@ -301,7 +301,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
     static MicrosoftVisualCppRedistributable get2013X86Package() {
 
-        Version version = Version.V2013;
+        Release release = Release.Y2013;
         ProcessorArchitecture processorArchitecture = ProcessorArchitecture.X86;
 
         DownloadInfo downloadInfo = new DownloadInfo(
@@ -318,7 +318,7 @@ class MicrosoftVisualCppRedistributableFactory {
         );
 
         return new MicrosoftVisualCppRedistributable(
-            version,
+            release,
             processorArchitecture,
             downloadInfo,
             installationInfo
@@ -327,7 +327,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
     static MicrosoftVisualCppRedistributable get2015PlusX64Package() {
 
-        Version version = Version.V2015PLUS;
+        Release release = Release.Y2015PLUS;
         ProcessorArchitecture processorArchitecture = ProcessorArchitecture.X64;
 
         DownloadInfo downloadInfo = new DownloadInfo(
@@ -344,7 +344,7 @@ class MicrosoftVisualCppRedistributableFactory {
         );
 
         return new MicrosoftVisualCppRedistributable(
-            version,
+            release,
             processorArchitecture,
             downloadInfo,
             installationInfo
@@ -353,7 +353,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
     static MicrosoftVisualCppRedistributable get2015PlusX86Package() {
 
-        Version version = Version.V2015PLUS;
+        Release release = Release.Y2015PLUS;
         ProcessorArchitecture processorArchitecture = ProcessorArchitecture.X86;
 
         DownloadInfo downloadInfo = new DownloadInfo(
@@ -370,7 +370,7 @@ class MicrosoftVisualCppRedistributableFactory {
         );
 
         return new MicrosoftVisualCppRedistributable(
-            version,
+            release,
             processorArchitecture,
             downloadInfo,
             installationInfo

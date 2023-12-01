@@ -27,7 +27,7 @@ package com.github.bagulus.msvcrj.model;
 import java.text.MessageFormat;
 
 public record MicrosoftVisualCppRedistributable(
-    Version version,
+    Release release,
     ProcessorArchitecture processorArchitecture,
     DownloadInfo downloadInfo,
     InstallationInfo installationInfo
@@ -61,7 +61,7 @@ public record MicrosoftVisualCppRedistributable(
     @Override
     public String toString() {
         return MessageFormat.format(
-            "Microsoft Visual C++ {0} {1} Redistributable Package", version, processorArchitecture
+            "Microsoft Visual C++ {0} {1} Redistributable Package", release, processorArchitecture
         );
     }
 }

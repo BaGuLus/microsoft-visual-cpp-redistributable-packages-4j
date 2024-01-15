@@ -54,7 +54,7 @@ public class MicrosoftVisualCppRedistributableInstaller implements Installer {
         String[] command = Stream
             .concat(
                 Arrays.stream(new String[]{String.valueOf(absoluteDownloadFilepath)}),
-                Arrays.stream(redistributable.installationInfo().installationParameters()))
+                Arrays.stream(redistributable.installationInfo().getInstallationParameters()))
             .toArray(String[]::new);
         try {
             Process installProcess = new ProcessBuilder()

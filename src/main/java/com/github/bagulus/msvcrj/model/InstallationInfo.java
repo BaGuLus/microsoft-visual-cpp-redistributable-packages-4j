@@ -29,11 +29,7 @@ import com.github.bagulus.msvcrj.version.VersionGetter;
 import java.util.Arrays;
 import java.util.Objects;
 
-public record InstallationInfo(
-    String[] installationParameters,
-    InstallationCheckHandler installationCheckHandler,
-    VersionGetter versionGetter
-) {
+public class InstallationInfo {
 
     public static final String[] INSTALLATION_PARAMETERS_2005 = new String[]{"/Q"};
     public static final String[] INSTALLATION_PARAMETERS_2008 = new String[]{"/q"};
@@ -41,6 +37,32 @@ public record InstallationInfo(
     public static final String[] INSTALLATION_PARAMETERS_2012 = new String[]{"/install", "/quiet", "/norestart"};
     public static final String[] INSTALLATION_PARAMETERS_2013 = INSTALLATION_PARAMETERS_2012;
     public static final String[] INSTALLATION_PARAMETERS_2015PLUS = INSTALLATION_PARAMETERS_2012;
+
+    private final String[] installationParameters;
+    private final InstallationCheckHandler installationCheckHandler;
+    private final VersionGetter versionGetter;
+
+    public InstallationInfo(
+        String[] installationParameters,
+        InstallationCheckHandler installationCheckHandler,
+        VersionGetter versionGetter
+    ) {
+        this.installationParameters = installationParameters;
+        this.installationCheckHandler = installationCheckHandler;
+        this.versionGetter = versionGetter;
+    }
+
+    public String[] getInstallationParameters() {
+        return installationParameters;
+    }
+
+    public boolean isInstalled() {
+        return installationCheckHandler.isInstalled();
+    }
+
+    public Version getVersion() {
+        return versionGetter.getVersion();
+    }
 
     @Override
     public boolean equals(Object o) {

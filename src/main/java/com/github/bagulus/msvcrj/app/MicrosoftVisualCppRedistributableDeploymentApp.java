@@ -142,7 +142,7 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
         Path fileName,
         Path workingDirectory
     ) {
-        if (redistributable.installationInfo().installationCheckHandler().isInstalled()) {
+        if (redistributable.installationInfo().isInstalled()) {
             System.out.println(MessageFormat.format("""
                    | SKIPPING {0} DEPLOYMENT
                    | Reason: The redistributable is already installed

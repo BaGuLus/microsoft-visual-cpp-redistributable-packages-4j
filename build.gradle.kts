@@ -35,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.robtimus:windows-registry:1.0.1")
+    implementation("com.github.robtimus:windows-registry:1.1")
 }
 
 java {

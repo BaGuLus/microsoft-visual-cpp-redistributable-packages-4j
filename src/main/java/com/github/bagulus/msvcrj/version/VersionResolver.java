@@ -25,6 +25,7 @@
 package com.github.bagulus.msvcrj.version;
 
 import com.vdurmont.semver4j.Semver;
+import com.vdurmont.semver4j.Semver.SemverType;
 import com.vdurmont.semver4j.SemverException;
 
 public abstract class VersionResolver {
@@ -34,7 +35,7 @@ public abstract class VersionResolver {
     protected VersionResolver(String string) throws VersionCheckFailedException {
         try {
             // string might start with some letter
-            this.version = new Semver(string.replaceFirst("[a-zA-Z]", ""));
+            this.version = new Semver(string.replaceFirst("[a-zA-Z]", ""), SemverType.LOOSE);
         } catch (SemverException e) {
             throw new VersionCheckFailedException(e);
         }

@@ -22,10 +22,9 @@
  * SOFTWARE.
  */
 
-rootProject.name = "microsoft-visual-cpp-redistributable-packages-4j"
+package com.github.bagulus.msvcrp4j.downloader;
 
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-app-cli")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:downloader")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:installer")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:model")
+public interface Downloader {
+
+    long download() throws DownloadFailedException;
+}

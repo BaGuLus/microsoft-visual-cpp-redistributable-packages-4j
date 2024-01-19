@@ -22,10 +22,23 @@
  * SOFTWARE.
  */
 
-rootProject.name = "microsoft-visual-cpp-redistributable-packages-4j"
+package com.github.bagulus.msvcrp4j.installer;
 
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-app-cli")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:downloader")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:installer")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:model")
+public class InstallationFailedException extends Exception {
+
+    public InstallationFailedException() {
+        super();
+    }
+
+    public InstallationFailedException(String message) {
+        super(message);
+    }
+
+    public InstallationFailedException(Throwable cause) {
+        super(cause);
+    }
+
+    public InstallationFailedException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}

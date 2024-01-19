@@ -22,10 +22,18 @@
  * SOFTWARE.
  */
 
-rootProject.name = "microsoft-visual-cpp-redistributable-packages-4j"
+package com.github.bagulus.msvcrp4j.model;
 
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-app-cli")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:downloader")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:installer")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:model")
+    public enum Release {
+        Y2005,
+        Y2008,
+        Y2010,
+        Y2012,
+        Y2013,
+        Y2015PLUS;
+
+        @Override
+        public String toString() {
+            return name().substring(1).replace("PLUS", "+");
+        }
+    }

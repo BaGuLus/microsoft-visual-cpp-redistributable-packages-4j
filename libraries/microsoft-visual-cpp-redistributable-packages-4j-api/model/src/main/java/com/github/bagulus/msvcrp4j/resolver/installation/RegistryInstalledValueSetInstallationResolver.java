@@ -22,10 +22,23 @@
  * SOFTWARE.
  */
 
-rootProject.name = "microsoft-visual-cpp-redistributable-packages-4j"
+package com.github.bagulus.msvcrp4j.resolver.installation;
 
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-app-cli")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:downloader")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:installer")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:model")
+import com.github.robtimus.os.windows.registry.RegistryException;
+import com.github.robtimus.os.windows.registry.RegistryKey;
+
+public class RegistryInstalledValueSetInstallationResolver extends RegistryInstallationResolver {
+
+    public RegistryInstalledValueSetInstallationResolver(RegistryKey registryKey) {
+        super(registryKey);
+    }
+
+    @Override
+    protected boolean findIfInstalledInRegistry(RegistryKey registryKey) {
+        try {
+            return registryKey.getDWordValue("Installed") == 1;
+        } catch (RegistryException e) {
+            return false;
+        }
+    }
+}

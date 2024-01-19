@@ -22,10 +22,22 @@
  * SOFTWARE.
  */
 
-rootProject.name = "microsoft-visual-cpp-redistributable-packages-4j"
+package com.github.bagulus.msvcrp4j.resolver.version;
 
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-app-cli")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:downloader")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:installer")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:model")
+import com.github.robtimus.os.windows.registry.RegistryException;
+import com.github.robtimus.os.windows.registry.RegistryKey;
+
+public class StringRegistryVersionResolver extends VersionResolver {
+
+    public StringRegistryVersionResolver(RegistryKey registryKey) throws VersionCheckFailedException {
+        super(getStringVersion(registryKey));
+    }
+
+    private static String getStringVersion(RegistryKey registryKey) throws VersionCheckFailedException {
+        try {
+            return registryKey.getStringValue("Version");
+        } catch (RegistryException e) {
+            throw new VersionCheckFailedException("Unable to find value in registry", e);
+        }
+    }
+}

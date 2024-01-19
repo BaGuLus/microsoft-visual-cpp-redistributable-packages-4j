@@ -27,16 +27,15 @@ plugins {
     application
 }
 
-group = "com.github.bagulus.msvcrj"
+group = "com.github.bagulus.msvcrp4j"
 version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
-}
+allprojects {
+    version = rootProject.version
 
-dependencies {
-    implementation("com.github.robtimus:windows-registry:1.1")
-    implementation("com.vdurmont:semver4j:3.1.0")
+    repositories {
+        mavenCentral()
+    }
 }
 
 java {
@@ -46,16 +45,6 @@ java {
 
 application {
     mainClass.set("com/github/bagulus/msvcrj/app/MicrosoftVisualCppRedistributableDeploymentApp")
-}
-
-tasks.jar {
-    manifest.attributes["Main-Class"] = "com/github/bagulus/msvcrj/app/MicrosoftVisualCppRedistributableDeploymentApp"
-    val dependencies = configurations
-            .runtimeClasspath
-            .get()
-            .map(::zipTree)
-    from(dependencies)
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 tasks.test {

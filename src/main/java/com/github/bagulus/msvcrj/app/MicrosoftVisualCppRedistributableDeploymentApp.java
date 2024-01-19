@@ -24,9 +24,9 @@
 
 package com.github.bagulus.msvcrj.app;
 
-import com.github.bagulus.msvcrj.download.DownloadFailedException;
-import com.github.bagulus.msvcrj.download.Downloader;
-import com.github.bagulus.msvcrj.download.MicrosoftVisualCppRedistributableDownloader;
+import com.github.bagulus.msvcrj.downloader.DownloadFailedException;
+import com.github.bagulus.msvcrj.downloader.Downloader;
+import com.github.bagulus.msvcrj.downloader.MicrosoftVisualCppRedistributableDownloader;
 import com.github.bagulus.msvcrj.install.InstallationFailedException;
 import com.github.bagulus.msvcrj.install.Installer;
 import com.github.bagulus.msvcrj.install.MicrosoftVisualCppRedistributableInstaller;

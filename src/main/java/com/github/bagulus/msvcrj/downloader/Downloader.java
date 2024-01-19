@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.github.bagulus.msvcrj.download;
+package com.github.bagulus.msvcrj.downloader;
 
 public interface Downloader {
 

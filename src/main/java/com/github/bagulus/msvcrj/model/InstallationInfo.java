@@ -29,6 +29,7 @@ import com.github.bagulus.msvcrj.version.VersionResolver;
 import com.vdurmont.semver4j.Semver;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 
 public class InstallationInfo {
 
@@ -61,8 +62,11 @@ public class InstallationInfo {
         return installationCheckHandler.isInstalled();
     }
 
-    public Semver getVersion() {
-        return versionResolver.getVersion();
+    public Optional<Semver> getVersion() {
+        if (versionResolver == null) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(versionResolver.getVersion());
     }
 
     @Override

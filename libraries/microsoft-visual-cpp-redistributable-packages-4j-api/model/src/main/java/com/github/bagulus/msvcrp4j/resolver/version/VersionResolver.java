@@ -22,10 +22,26 @@
  * SOFTWARE.
  */
 
-rootProject.name = "microsoft-visual-cpp-redistributable-packages-4j"
+package com.github.bagulus.msvcrp4j.resolver.version;
 
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-app-cli")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:downloader")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:installer")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:model")
+import com.vdurmont.semver4j.Semver;
+import com.vdurmont.semver4j.Semver.SemverType;
+import com.vdurmont.semver4j.SemverException;
+
+public abstract class VersionResolver {
+
+    private final Semver version;
+
+    protected VersionResolver(String string) throws VersionCheckFailedException {
+        try {
+            // string might start with some letter
+            this.version = new Semver(string.replaceFirst("[a-zA-Z]", ""), SemverType.LOOSE);
+        } catch (SemverException e) {
+            throw new VersionCheckFailedException(e);
+        }
+    }
+
+    public Semver getVersion() {
+        return version;
+    }
+}

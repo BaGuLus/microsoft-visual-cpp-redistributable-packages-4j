@@ -22,10 +22,23 @@
  * SOFTWARE.
  */
 
-rootProject.name = "microsoft-visual-cpp-redistributable-packages-4j"
+package com.github.bagulus.msvcrp4j.resolver.version;
 
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-app-cli")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:downloader")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:installer")
-include(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:model")
+public class VersionCheckFailedException extends Exception {
+
+    public VersionCheckFailedException() {
+        super();
+    }
+
+    public VersionCheckFailedException(String message) {
+        super(message);
+    }
+
+    public VersionCheckFailedException(Throwable cause) {
+        super(cause);
+    }
+
+    public VersionCheckFailedException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}

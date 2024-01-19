@@ -24,7 +24,7 @@
 
 package com.github.bagulus.msvcrj.model;
 
-import com.github.bagulus.msvcrj.install.InstallationCheckHandler;
+import com.github.bagulus.msvcrj.install.InstallationResolver;
 import com.github.bagulus.msvcrj.version.VersionResolver;
 import com.vdurmont.semver4j.Semver;
 import java.util.Arrays;
@@ -41,16 +41,16 @@ public class InstallationInfo {
     public static final String[] INSTALLATION_PARAMETERS_2015PLUS = INSTALLATION_PARAMETERS_2012;
 
     private final String[] installationParameters;
-    private final InstallationCheckHandler installationCheckHandler;
+    private final InstallationResolver installationResolver;
     private final VersionResolver versionResolver;
 
     public InstallationInfo(
         String[] installationParameters,
-        InstallationCheckHandler installationCheckHandler,
+        InstallationResolver installationResolver,
         VersionResolver versionResolver
     ) {
         this.installationParameters = installationParameters;
-        this.installationCheckHandler = installationCheckHandler;
+        this.installationResolver = installationResolver;
         this.versionResolver = versionResolver;
     }
 
@@ -59,7 +59,7 @@ public class InstallationInfo {
     }
 
     public boolean isInstalled() {
-        return installationCheckHandler.isInstalled();
+        return installationResolver.isInstalled();
     }
 
     public Optional<Semver> getVersion() {
@@ -79,13 +79,13 @@ public class InstallationInfo {
         }
         InstallationInfo that = (InstallationInfo) o;
         return Arrays.equals(installationParameters, that.installationParameters) && Objects.equals(
-            installationCheckHandler, that.installationCheckHandler) && Objects.equals(versionResolver,
+            installationResolver, that.installationResolver) && Objects.equals(versionResolver,
             that.versionResolver);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(installationCheckHandler, versionResolver);
+        int result = Objects.hash(installationResolver, versionResolver);
         result = 31 * result + Arrays.hashCode(installationParameters);
         return result;
     }
@@ -94,7 +94,7 @@ public class InstallationInfo {
     public String toString() {
         return "InstallationInfo{" +
             "installationParameters=" + Arrays.toString(installationParameters) +
-            ", installationCheckHandler=" + installationCheckHandler +
+            ", installationCheckHandler=" + installationResolver +
             ", versionGetter=" + versionResolver +
             '}';
     }

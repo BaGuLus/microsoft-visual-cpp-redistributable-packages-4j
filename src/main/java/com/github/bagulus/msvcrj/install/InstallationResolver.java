@@ -24,7 +24,7 @@
 
 package com.github.bagulus.msvcrj.install;
 
-public interface InstallationCheckHandler {
+public interface InstallationResolver {
 
     boolean isInstalled();
 }

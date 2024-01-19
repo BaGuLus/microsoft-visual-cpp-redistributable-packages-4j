@@ -27,13 +27,13 @@ package com.github.bagulus.msvcrj.install;
 import com.github.robtimus.os.windows.registry.RegistryException;
 import com.github.robtimus.os.windows.registry.RegistryKey;
 
-public record RegistryKeyExistsInstallationCheckHandler(RegistryKey registryKey)
-    implements InstallationCheckHandler {
+public record RegistryInstalledValueSetInstallationResolver(RegistryKey registryKey)
+    implements InstallationResolver {
 
     @Override
     public boolean isInstalled() {
         try {
-            return registryKey.exists();
+            return registryKey.getDWordValue("Installed") == 1;
         } catch (RegistryException e) {
             return false;
         }

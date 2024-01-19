@@ -31,8 +31,7 @@ import static com.github.bagulus.msvcrj.model.InstallationInfo.INSTALLATION_PARA
 import static com.github.bagulus.msvcrj.model.InstallationInfo.INSTALLATION_PARAMETERS_2013;
 import static com.github.bagulus.msvcrj.model.InstallationInfo.INSTALLATION_PARAMETERS_2015PLUS;
 
-import com.github.bagulus.msvcrj.install.RegistryInstalledValueSetInstallationResolver;
-import com.github.bagulus.msvcrj.install.RegistryKeyExistsInstallationResolver;
+import com.github.bagulus.msvcrj.install.InstallationResolverFactory;
 import com.github.bagulus.msvcrj.version.VersionResolverFactory;
 import com.github.robtimus.os.windows.registry.RegistryKey;
 import java.net.URI;
@@ -67,7 +66,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
         InstallationInfo installationInfo = new InstallationInfo(
             INSTALLATION_PARAMETERS_2005,
-            new RegistryKeyExistsInstallationResolver(registryKey),
+            InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createDWordRegistryVersionResolver(registryKey)
         );
 
@@ -94,7 +93,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
         InstallationInfo installationInfo = new InstallationInfo(
             INSTALLATION_PARAMETERS_2005,
-            new RegistryKeyExistsInstallationResolver(registryKey),
+            InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createDWordRegistryVersionResolver(registryKey)
         );
 
@@ -121,7 +120,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
         InstallationInfo installationInfo = new InstallationInfo(
             INSTALLATION_PARAMETERS_2008,
-            new RegistryKeyExistsInstallationResolver(registryKey),
+            InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createProductNameRegistryVersionResolver(registryKey)
         );
 
@@ -148,7 +147,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
         InstallationInfo installationInfo = new InstallationInfo(
             INSTALLATION_PARAMETERS_2008,
-            new RegistryKeyExistsInstallationResolver(registryKey),
+            InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createProductNameRegistryVersionResolver(registryKey)
         );
 
@@ -175,7 +174,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
         InstallationInfo installationInfo = new InstallationInfo(
             INSTALLATION_PARAMETERS_2010,
-            new RegistryKeyExistsInstallationResolver(registryKey),
+            InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createProductNameRegistryVersionResolver(registryKey)
         );
 
@@ -202,7 +201,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
         InstallationInfo installationInfo = new InstallationInfo(
             INSTALLATION_PARAMETERS_2010,
-            new RegistryKeyExistsInstallationResolver(registryKey),
+            InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createProductNameRegistryVersionResolver(registryKey)
         );
 
@@ -229,7 +228,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
         InstallationInfo installationInfo = new InstallationInfo(
             INSTALLATION_PARAMETERS_2012,
-            new RegistryKeyExistsInstallationResolver(registryKey),
+            InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createStringRegistryVersionResolver(registryKey)
         );
 
@@ -256,7 +255,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
         InstallationInfo installationInfo = new InstallationInfo(
             INSTALLATION_PARAMETERS_2012,
-            new RegistryKeyExistsInstallationResolver(registryKey),
+            InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createStringRegistryVersionResolver(registryKey)
         );
 
@@ -282,7 +281,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
         InstallationInfo installationInfo = new InstallationInfo(
             INSTALLATION_PARAMETERS_2013,
-            new RegistryKeyExistsInstallationResolver(registryKey),
+            InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createStringRegistryVersionResolver(registryKey)
         );
 
@@ -308,7 +307,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
         InstallationInfo installationInfo = new InstallationInfo(
             INSTALLATION_PARAMETERS_2013,
-            new RegistryKeyExistsInstallationResolver(registryKey),
+            InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createStringRegistryVersionResolver(registryKey)
         );
 
@@ -334,7 +333,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
         InstallationInfo installationInfo = new InstallationInfo(
             INSTALLATION_PARAMETERS_2015PLUS,
-            new RegistryInstalledValueSetInstallationResolver(registryKey),
+            InstallationResolverFactory.createRegistryInstalledValueSetInstallationResolver(registryKey),
             VersionResolverFactory.createStringRegistryVersionResolver(registryKey)
         );
 
@@ -360,7 +359,7 @@ class MicrosoftVisualCppRedistributableFactory {
 
         InstallationInfo installationInfo = new InstallationInfo(
             INSTALLATION_PARAMETERS_2015PLUS,
-            new RegistryInstalledValueSetInstallationResolver(registryKey),
+            InstallationResolverFactory.createRegistryInstalledValueSetInstallationResolver(registryKey),
             VersionResolverFactory.createStringRegistryVersionResolver(registryKey)
         );
 

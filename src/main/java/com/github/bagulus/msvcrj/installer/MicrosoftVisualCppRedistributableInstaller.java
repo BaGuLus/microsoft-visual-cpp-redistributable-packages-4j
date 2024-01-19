@@ -22,9 +22,11 @@
  * SOFTWARE.
  */
 
-package com.github.bagulus.msvcrj.install;
+package com.github.bagulus.msvcrj.installer;
 
 
+import com.github.bagulus.msvcrj.installer.InstallationFailedException;
+import com.github.bagulus.msvcrj.installer.Installer;
 import com.github.bagulus.msvcrj.model.MicrosoftVisualCppRedistributable;
 import java.io.IOException;
 import java.nio.file.Path;

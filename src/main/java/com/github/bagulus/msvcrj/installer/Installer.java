@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.github.bagulus.msvcrj.install;
+package com.github.bagulus.msvcrj.installer;
 
 public interface Installer {
 

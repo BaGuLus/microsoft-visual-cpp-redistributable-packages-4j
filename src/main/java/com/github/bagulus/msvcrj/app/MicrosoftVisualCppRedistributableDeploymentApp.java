@@ -30,9 +30,11 @@ import com.github.bagulus.msvcrj.download.MicrosoftVisualCppRedistributableDownl
 import com.github.bagulus.msvcrj.install.InstallationFailedException;
 import com.github.bagulus.msvcrj.install.Installer;
 import com.github.bagulus.msvcrj.install.MicrosoftVisualCppRedistributableInstaller;
+import com.github.bagulus.msvcrj.model.InstallationInfo;
 import com.github.bagulus.msvcrj.model.MicrosoftVisualCppRedistributable;
 import com.github.bagulus.msvcrj.model.ProcessorArchitecture;
 import com.github.bagulus.msvcrj.model.Release;
+import com.vdurmont.semver4j.Semver;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.FileVisitResult;
@@ -43,6 +45,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Command line application which installs the specified Microsoft Visual C++ Redistributable Packages. Firstly, a
@@ -142,11 +145,19 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
         Path fileName,
         Path workingDirectory
     ) {
-        if (redistributable.installationInfo().isInstalled()) {
+        InstallationInfo installationInfo = redistributable.installationInfo();
+
+        Optional<Semver> version = installationInfo.getVersion();
+        String versionString = version.isPresent()
+            ? String.valueOf(version.orElseThrow())
+            : "Couldn't be retrieved";
+
+        if (installationInfo.isInstalled()) {
             System.out.println(MessageFormat.format("""
                    | SKIPPING {0} DEPLOYMENT
                    | Reason: The redistributable is already installed
-                """, redistributable));
+                   | Installed version: {1}
+                """, redistributable, versionString));
 
             deploymentsSkipped++;
             return;

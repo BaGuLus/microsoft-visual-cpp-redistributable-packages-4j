@@ -24,16 +24,23 @@
 
 package com.github.bagulus.msvcrj.version;
 
-import com.github.robtimus.os.windows.registry.RegistryException;
-import com.github.robtimus.os.windows.registry.RegistryKey;
+import com.vdurmont.semver4j.Semver;
+import com.vdurmont.semver4j.SemverException;
 
-abstract class DWordRegistryVersionGetter implements VersionGetter {
+public abstract class VersionResolver {
 
-    protected int findValue(RegistryKey registryKey, String value) throws VersionCheckFailedException {
+    private final Semver version;
+
+    protected VersionResolver(String string) throws VersionCheckFailedException {
         try {
-            return registryKey.getDWordValue(value);
-        } catch (RegistryException e) {
-            throw new VersionCheckFailedException("Unable to find value in registry", e);
+            // string might start with some letter
+            this.version = new Semver(string.replaceFirst("[a-zA-Z]", ""));
+        } catch (SemverException e) {
+            throw new VersionCheckFailedException(e);
         }
+    }
+
+    public Semver getVersion() {
+        return version;
     }
 }

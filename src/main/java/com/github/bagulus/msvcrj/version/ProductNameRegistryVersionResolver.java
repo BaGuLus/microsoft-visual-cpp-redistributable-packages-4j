@@ -27,13 +27,25 @@ package com.github.bagulus.msvcrj.version;
 import com.github.robtimus.os.windows.registry.RegistryException;
 import com.github.robtimus.os.windows.registry.RegistryKey;
 
-abstract class DWordRegistryVersionGetter implements VersionGetter {
+public class ProductNameRegistryVersionResolver extends VersionResolver {
 
-    protected int findValue(RegistryKey registryKey, String value) throws VersionCheckFailedException {
+    public ProductNameRegistryVersionResolver(RegistryKey registryKey) throws VersionCheckFailedException {
+        super(getStringVersion(registryKey));
+    }
+
+    private static String getStringVersion(RegistryKey registryKey) throws VersionCheckFailedException {
+        String productName;
         try {
-            return registryKey.getDWordValue(value);
+            productName = registryKey.getStringValue("ProductName");
         } catch (RegistryException e) {
-            throw new VersionCheckFailedException("Unable to find value in registry", e);
+            throw new VersionCheckFailedException("Unable to parse version from product name", e);
         }
+
+        String[] productNameTokens = productName.split(" ");
+        int length = productNameTokens.length;
+        if (length < 1) {
+            throw new VersionCheckFailedException("Unable to parse version from product name, product name is empty");
+        }
+        return productNameTokens[length - 1];
     }
 }

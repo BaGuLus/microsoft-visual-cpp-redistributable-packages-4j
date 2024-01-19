@@ -24,20 +24,24 @@
 
 package com.github.bagulus.msvcrj.version;
 
-import com.github.robtimus.os.windows.registry.RegistryException;
-import com.github.robtimus.os.windows.registry.RegistryKey;
+import com.vdurmont.semver4j.Semver;
+import com.vdurmont.semver4j.Semver.SemverType;
+import com.vdurmont.semver4j.SemverException;
 
-public class VersionRegistryVersionGetter extends StringVersionGetter {
+public abstract class VersionResolver {
 
-    public VersionRegistryVersionGetter(RegistryKey registryKey) throws VersionCheckFailedException {
-        super(getVersionString(registryKey));
+    private final Semver version;
+
+    protected VersionResolver(String string) throws VersionCheckFailedException {
+        try {
+            // string might start with some letter
+            this.version = new Semver(string.replaceFirst("[a-zA-Z]", ""), SemverType.LOOSE);
+        } catch (SemverException e) {
+            throw new VersionCheckFailedException(e);
+        }
     }
 
-    private static String getVersionString(RegistryKey registryKey) throws VersionCheckFailedException {
-        try {
-            return registryKey.getStringValue("Version");
-        } catch (RegistryException e) {
-            throw new VersionCheckFailedException("Unable to parse version from product name", e);
-        }
+    public Semver getVersion() {
+        return version;
     }
 }

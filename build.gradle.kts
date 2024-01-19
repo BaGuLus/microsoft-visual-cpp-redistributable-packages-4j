@@ -36,6 +36,7 @@ repositories {
 
 dependencies {
     implementation("com.github.robtimus:windows-registry:1.1")
+    implementation("com.vdurmont:semver4j:3.1.0")
 }
 
 java {

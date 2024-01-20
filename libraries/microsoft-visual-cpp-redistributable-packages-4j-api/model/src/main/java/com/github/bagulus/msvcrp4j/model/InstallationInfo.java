@@ -59,7 +59,7 @@ public class InstallationInfo {
     }
 
     public boolean isInstalled() {
-        return installationResolver.isInstalled();
+        return installationResolver != null && installationResolver.isInstalled();
     }
 
     public Optional<Semver> getVersion() {

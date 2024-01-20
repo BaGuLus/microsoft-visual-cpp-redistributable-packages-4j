@@ -34,6 +34,6 @@ package com.github.bagulus.msvcrp4j.model;
 
         @Override
         public String toString() {
-            return name().substring(1).replace("PLUS", "+");
+            return name().substring(1);
         }
     }

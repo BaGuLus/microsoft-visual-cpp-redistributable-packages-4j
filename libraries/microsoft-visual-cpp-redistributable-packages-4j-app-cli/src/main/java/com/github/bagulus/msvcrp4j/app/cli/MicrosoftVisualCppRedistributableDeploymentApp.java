@@ -43,7 +43,8 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.text.MessageFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,6 +78,7 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
         MicrosoftVisualCppRedistributable.X64_2015PLUS,
         MicrosoftVisualCppRedistributable.X86_2015PLUS
     );
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private static int deploymentsSkipped = 0;
     private static int downloadsSuccessful = 0;
@@ -92,7 +94,7 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
                |------------------------------------------------------------------------------------
             ---| STARTED MICROSOFT VISUAL C++ REDISTRIBUTABLES DEPLOYMENT
                | Start time: {0}
-            """, new Date()));
+            """, LocalDateTime.now().format(dateTimeFormatter)));
         try {
             deleteDownloadDirectory();
             Files.createDirectories(DOWNLOAD_DIRECTORY);
@@ -135,7 +137,7 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
             System.out.println(MessageFormat.format("""
                    | End time: {0}
                    |------------------------------------------------------------------------------------
-                """, new Date())
+                """, LocalDateTime.now().format(dateTimeFormatter))
             );
         }
     }

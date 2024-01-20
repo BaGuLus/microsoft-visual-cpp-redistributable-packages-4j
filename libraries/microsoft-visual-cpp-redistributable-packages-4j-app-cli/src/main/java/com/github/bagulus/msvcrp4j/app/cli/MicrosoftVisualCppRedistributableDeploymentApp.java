@@ -24,6 +24,8 @@
 
 package com.github.bagulus.msvcrp4j.app.cli;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.ParameterException;
 import com.github.bagulus.msvcrp4j.downloader.DownloadFailedException;
 import com.github.bagulus.msvcrp4j.downloader.Downloader;
 import com.github.bagulus.msvcrp4j.downloader.MicrosoftVisualCppRedistributableDownloader;
@@ -45,101 +47,184 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.Collection;
 import java.util.Optional;
 
 /**
- * Command line application which installs the specified Microsoft Visual C++ Redistributable Packages. Firstly, a
- * download directory is created in user's Downloads directory. Then for each package, the program:
+ * Command line application which installs the specified Microsoft Visual C++ Redistributable Packages.<br> Firstly, the
+ * working directory specified with [--workingDirectory | -w] parameter (or {@code $USER_HOME/Downloads/vcredist-temp}
+ * as default) is created if it's not already present. Then for each package, the program:
  * <ol>
+ *     <li>If </li>
  *     <li>Checks if the same version is already installed - if yes, it is skipped</li>
  *     <li>Downloads the package installer by using given link</li>
  *     <li>Starts the downloaded package installer in silent mode</li>
  * </ol>
- * Lastly the created download directory is completely removed.
+ * Lastly, if [--cleanup | -c] argument is not provided, or called with true, the working directory is completely removed.
  * <p>
  */
 @SuppressWarnings("squid:S106")
 public class MicrosoftVisualCppRedistributableDeploymentApp {
-
-    private static final Path DOWNLOAD_DIRECTORY = Path.of(System.getProperty("user.home"), "Downloads",
-        "vcredist-temp");
-    private static final List<MicrosoftVisualCppRedistributable> MICROSOFT_VISUAL_CPP_REDISTRIBUTABLE_TO_INSTALL = List.of(
-        MicrosoftVisualCppRedistributable.X64_2005,
-        MicrosoftVisualCppRedistributable.X86_2005,
-        MicrosoftVisualCppRedistributable.X64_2008,
-        MicrosoftVisualCppRedistributable.X86_2008,
-        MicrosoftVisualCppRedistributable.X64_2010,
-        MicrosoftVisualCppRedistributable.X86_2010,
-        MicrosoftVisualCppRedistributable.X64_2012,
-        MicrosoftVisualCppRedistributable.X86_2012,
-        MicrosoftVisualCppRedistributable.X64_2013,
-        MicrosoftVisualCppRedistributable.X86_2013,
-        MicrosoftVisualCppRedistributable.X64_2015PLUS,
-        MicrosoftVisualCppRedistributable.X86_2015PLUS
-    );
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private static int deploymentsSkipped = 0;
     private static int downloadsSuccessful = 0;
     private static int installationsSuccessful = 0;
+    private static boolean quietMode = false;
+    private static Path workingDirectory;
 
-
-    public static void main(String[] args) {
-        run();
+    public static void main(String[] argv) {
+        try {
+            Args args = new Args();
+            JCommander.newBuilder()
+                .addObject(args)
+                .build()
+                .parse(argv);
+            run(args);
+        } catch (ParameterException e) {
+            e.usage();
+            System.exit(1);
+        }
     }
 
-    public static void run() {
-        System.out.println(MessageFormat.format("""
+    public static void run(Args args) {
+        quietMode = args.quietMode;
+        workingDirectory = args.workingDirectory;
+
+        if (args.redistributablesToDeploy != null) {
+            deployCollection(args.redistributablesToDeploy);
+            cleanup(args.cleanup);
+            return;
+        }
+
+        if (args.redistributablesToDownload != null) {
+            downloadCollection(args.redistributablesToDownload);
+        }
+        if (args.redistributablesToInstall != null) {
+            installCollection(args.redistributablesToInstall);
+        }
+        cleanup(args.cleanup);
+    }
+
+    private static void deployCollection(Collection<MicrosoftVisualCppRedistributable> redistributables) {
+        output(MessageFormat.format("""
                |------------------------------------------------------------------------------------
             ---| STARTED MICROSOFT VISUAL C++ REDISTRIBUTABLES DEPLOYMENT
                | Start time: {0}
-            """, LocalDateTime.now().format(dateTimeFormatter)));
+            """, currentTime()));
         try {
-            deleteDownloadDirectory();
-            Files.createDirectories(DOWNLOAD_DIRECTORY);
-
-            for (MicrosoftVisualCppRedistributable redistributable : MICROSOFT_VISUAL_CPP_REDISTRIBUTABLE_TO_INSTALL) {
-                Path fileName = createFileName(redistributable.release(), redistributable.processorArchitecture());
-                deploy(redistributable, fileName, DOWNLOAD_DIRECTORY);
-            }
-
-            int redistributablesToInstallCount = MICROSOFT_VISUAL_CPP_REDISTRIBUTABLE_TO_INSTALL.size();
-
-            int downloadsUnsuccessful = redistributablesToInstallCount - downloadsSuccessful - deploymentsSkipped;
-            int installationsUnsuccessful =
-                redistributablesToInstallCount - installationsSuccessful - deploymentsSkipped;
-
-            System.out.println(MessageFormat.format("""
-                    ---| FINISHED MICROSOFT VISUAL C++ REDISTRIBUTABLES DEPLOYMENT
-                       | Deployments skipped: {0}
-                       | Successfully downloaded files: {1}
-                       | Successfully installed files: {2}
-                       | Unsuccessfully downloaded files: {3}
-                       | Unsuccessfully installed files: {4}
-                    """,
-                deploymentsSkipped,
-                downloadsSuccessful,
-                installationsSuccessful,
-                downloadsUnsuccessful,
-                installationsUnsuccessful)
-            );
-
-            deleteDownloadDirectory();
-
+            Files.createDirectories(workingDirectory);
         } catch (IOException e) {
-            System.out.println(MessageFormat.format("""
-                ---| FINISHED MICROSOFT VISUAL C++ REDISTRIBUTABLES DEPLOYMENT WITH ERROR
+            output(MessageFormat.format("""
+                ---| FINISHED MICROSOFT VISUAL C++ REDISTRIBUTABLES DOWNLOAD WITH ERROR
                    | Reason: {0}
-                """, e)
-            );
-        } finally {
-            System.out.println(MessageFormat.format("""
-                   | End time: {0}
+                   | End time: {1}
                    |------------------------------------------------------------------------------------
-                """, LocalDateTime.now().format(dateTimeFormatter))
-            );
+                """, e, currentTime()));
+            return;
         }
+        
+        for (MicrosoftVisualCppRedistributable redistributable : redistributables) {
+            Path fileName = createFileName(redistributable.release(), redistributable.processorArchitecture());
+            deploy(redistributable, fileName, workingDirectory);
+        }
+
+        int redistributablesToDeployCount = redistributables.size();
+
+        int downloadsUnsuccessful = redistributablesToDeployCount - downloadsSuccessful - deploymentsSkipped;
+        int installationsUnsuccessful =
+            redistributablesToDeployCount - installationsSuccessful - deploymentsSkipped;
+
+        output(MessageFormat.format("""
+                ---| FINISHED MICROSOFT VISUAL C++ REDISTRIBUTABLES DEPLOYMENT
+                   | Deployments skipped: {0}
+                   | Successfully downloaded files: {1}
+                   | Successfully installed files: {2}
+                   | Unsuccessfully downloaded files: {3}
+                   | Unsuccessfully installed files: {4}
+                   | End time: {5}
+                   |------------------------------------------------------------------------------------
+                """,
+            deploymentsSkipped,
+            downloadsSuccessful,
+            installationsSuccessful,
+            downloadsUnsuccessful,
+            installationsUnsuccessful,
+            currentTime()));
+
+    }
+
+    private static void downloadCollection(Collection<MicrosoftVisualCppRedistributable> redistributables) {
+        output(MessageFormat.format("""
+               |------------------------------------------------------------------------------------
+            ---| STARTED MICROSOFT VISUAL C++ REDISTRIBUTABLES DOWNLOAD
+               | Start time: {0}
+            """, currentTime()));
+        try {
+            Files.createDirectories(workingDirectory);
+        } catch (IOException e) {
+            output(MessageFormat.format("""
+                ---| FINISHED MICROSOFT VISUAL C++ REDISTRIBUTABLES DOWNLOAD WITH ERROR
+                   | Reason: {0}
+                   | End time: {1}
+                   |------------------------------------------------------------------------------------
+                """, e, currentTime()));
+            return;
+        }
+
+        for (MicrosoftVisualCppRedistributable redistributable : redistributables) {
+            Path fileName = createFileName(redistributable.release(), redistributable.processorArchitecture());
+            download(redistributable, fileName, workingDirectory);
+        }
+
+        int redistributablesToDownloadCount = redistributables.size();
+
+        int downloadsUnsuccessful = redistributablesToDownloadCount - downloadsSuccessful;
+
+        output(MessageFormat.format("""
+                ---| FINISHED MICROSOFT VISUAL C++ REDISTRIBUTABLES DOWNLOAD
+                   | Successfully downloaded files: {0}
+                   | Unsuccessfully downloaded files: {1}
+                   | End time: {2}
+                   |------------------------------------------------------------------------------------
+                """,
+            downloadsSuccessful, downloadsUnsuccessful, currentTime()));
+    }
+
+    private static void installCollection(Collection<MicrosoftVisualCppRedistributable> redistributables) {
+        output(MessageFormat.format("""
+               |------------------------------------------------------------------------------------
+            ---| STARTED MICROSOFT VISUAL C++ REDISTRIBUTABLES INSTALLATION
+               | Start time: {0}
+            """, currentTime()));
+
+        if (!Files.exists(workingDirectory)) {
+            output(MessageFormat.format("""
+                ---| FINISHED MICROSOFT VISUAL C++ REDISTRIBUTABLES INSTALLATION WITH ERROR
+                   | Reason: {0}
+                   | End time: {1}
+                   |------------------------------------------------------------------------------------
+                """, workingDirectory + " does not exist", currentTime()));
+            return;
+        }
+
+        for (MicrosoftVisualCppRedistributable redistributable : redistributables) {
+            Path fileName = createFileName(redistributable.release(), redistributable.processorArchitecture());
+            install(redistributable, fileName, workingDirectory);
+        }
+
+        int redistributablesToInstallCount = redistributables.size();
+
+        int installationsUnsuccessful = redistributablesToInstallCount - downloadsSuccessful;
+
+        output(MessageFormat.format("""
+                ---| FINISHED MICROSOFT VISUAL C++ REDISTRIBUTABLES INSTALLATION
+                   | Successfully installed files: {0}
+                   | Unsuccessfully installed files: {1}
+                   | End time: {2}
+                   |------------------------------------------------------------------------------------
+                """,
+            downloadsSuccessful, installationsUnsuccessful, currentTime()));
     }
 
     private static void deploy(
@@ -155,7 +240,7 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
             : "Couldn't be retrieved";
 
         if (installationInfo.isInstalled()) {
-            System.out.println(MessageFormat.format("""
+            output(MessageFormat.format("""
                    | SKIPPING {0} DEPLOYMENT
                    | Reason: The redistributable is already installed
                    | Installed version: {1}
@@ -165,31 +250,22 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
             return;
         }
 
-        try {
-            download(redistributable, fileName, workingDirectory);
-            install(redistributable, fileName, workingDirectory);
-
-        } catch (DownloadFailedException | InstallationFailedException e) {
-            System.out.println(MessageFormat.format("""
-                   | FINISHED {0} DEPLOYMENT UNSUCCESSFULLY
-                   | Reason: {1}
-                """, redistributable, e)
-            );
-        }
+        download(redistributable, fileName, workingDirectory);
+        install(redistributable, fileName, workingDirectory);
     }
 
     private static void download(
         MicrosoftVisualCppRedistributable redistributable,
         Path downloadFileName,
         Path downloadDirectory
-    ) throws DownloadFailedException {
+    ) {
         Downloader downloader = new MicrosoftVisualCppRedistributableDownloader(
             redistributable, downloadFileName, downloadDirectory
         );
 
         URI downloadUri = redistributable.downloadInfo().downloadUri();
 
-        System.out.println(MessageFormat.format("""
+        output(MessageFormat.format("""
                | STARTED {0} DOWNLOAD
                | Download URI: {1}
             """, redistributable, downloadUri)
@@ -198,7 +274,7 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
         try {
             long transferred = downloader.download();
 
-            System.out.println(MessageFormat.format("""
+            output(MessageFormat.format("""
                    | FINISHED {0} DOWNLOAD SUCCESSFULLY
                    | Transferred: {1} KB
                    | Downloaded file: {2}
@@ -208,12 +284,11 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
             downloadsSuccessful++;
 
         } catch (DownloadFailedException e) {
-            System.out.println(MessageFormat.format("""
+            output(MessageFormat.format("""
                    | FINISHED {0} DOWNLOAD UNSUCCESSFULLY
                    | Reason: {1}
                 """, redistributable, e)
             );
-            throw e;
         }
     }
 
@@ -221,12 +296,12 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
         MicrosoftVisualCppRedistributable redistributable,
         Path installationFileName,
         Path installationDirectory
-    ) throws InstallationFailedException {
+    ) {
         Installer installer = new MicrosoftVisualCppRedistributableInstaller(
             redistributable, installationFileName, installationDirectory
         );
 
-        System.out.println(MessageFormat.format("""
+        output(MessageFormat.format("""
                | STARTED {0} INSTALLATION
                | Installing file: {1}
             """, redistributable, installationFileName));
@@ -234,7 +309,7 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
         try {
             installer.install();
 
-            System.out.println(MessageFormat.format("""
+            output(MessageFormat.format("""
                    | FINISHED {0} INSTALLATION SUCCESSFULLY
                 """, redistributable)
             );
@@ -242,12 +317,11 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
             installationsSuccessful++;
 
         } catch (InstallationFailedException e) {
-            System.out.println(MessageFormat.format("""
+            output(MessageFormat.format("""
                    | FINISHED {0} INSTALLATION UNSUCCESSFULLY
                    | Reason: {1}
                 """, redistributable, e)
             );
-            throw e;
         }
     }
 
@@ -264,9 +338,28 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
             .concat(".exe"));
     }
 
-    private static void deleteDownloadDirectory() throws IOException {
-        if (Files.exists(DOWNLOAD_DIRECTORY)) {
-            Files.walkFileTree(DOWNLOAD_DIRECTORY, new SimpleFileVisitor<>() {
+    private static void cleanup(boolean cleanup) {
+        if (!cleanup) {
+            return;
+        }
+        try {
+            deleteDirectory(workingDirectory);
+            output(MessageFormat.format("""
+                   | FINISHED WORKING DIRECTORY {0} REMOVAL SUCCESSFULLY
+                   |------------------------------------------------------------------------------------
+                """, workingDirectory));
+        } catch (IOException e) {
+            output(MessageFormat.format("""
+                   | FINISHED WORKING DIRECTORY {0} REMOVAL WITH ERROR
+                   | Reason: {0}
+                   |------------------------------------------------------------------------------------
+                """, e));
+        }
+    }
+
+    private static void deleteDirectory(Path directory) throws IOException {
+        if (Files.exists(directory)) {
+            Files.walkFileTree(directory, new SimpleFileVisitor<>() {
 
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
@@ -281,5 +374,15 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
                 }
             });
         }
+    }
+
+    private static void output(String s) {
+        if (!quietMode) {
+            System.out.println(s);
+        }
+    }
+
+    private static String currentTime() {
+        return LocalDateTime.now().format(DATE_TIME_FORMATTER);
     }
 }

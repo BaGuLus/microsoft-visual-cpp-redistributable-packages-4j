@@ -32,7 +32,7 @@ import java.net.URI;
 
 /**
  * Factory class, which contains only static methods that return {@link MicrosoftVisualCppRedistributable} objects for
- * each version and processor architecture.
+ * each {@link Release} and {@link ProcessorArchitecture} (their latest version).
  * <p><br>
  * <a href="https://gist.github.com/ChuckMichael/7366c38f27e524add3c54f710678c98b">Download URIs</a>
  * <a

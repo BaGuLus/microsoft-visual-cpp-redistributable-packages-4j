@@ -11,6 +11,7 @@ application {
 }
 
 dependencies {
+    implementation(libs.jcommander)
     implementation(libs.semver4j)
     implementation(project(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:downloader"))
     implementation(project(":libraries:microsoft-visual-cpp-redistributable-packages-4j-api:installer"))

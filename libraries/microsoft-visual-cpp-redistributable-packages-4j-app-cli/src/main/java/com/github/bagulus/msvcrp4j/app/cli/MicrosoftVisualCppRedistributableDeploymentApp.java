@@ -260,7 +260,7 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
         Path downloadDirectory
     ) {
         Downloader downloader = new MicrosoftVisualCppRedistributableDownloader(
-            redistributable, downloadFileName, downloadDirectory
+            redistributable, downloadDirectory.resolve(downloadFileName)
         );
 
         URI downloadUri = redistributable.downloadInfo().downloadUri();
@@ -298,7 +298,7 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
         Path installationDirectory
     ) {
         Installer installer = new MicrosoftVisualCppRedistributableInstaller(
-            redistributable, installationFileName, installationDirectory
+            redistributable, installationDirectory.resolve(installationFileName)
         );
 
         output(MessageFormat.format("""

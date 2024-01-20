@@ -38,16 +38,13 @@ import java.util.Objects;
 public class MicrosoftVisualCppRedistributableDownloader implements Downloader {
 
     private final MicrosoftVisualCppRedistributable redistributable;
-    private final Path absoluteDownloadFilepath;
+    private final Path downloadFilePath;
 
     public MicrosoftVisualCppRedistributableDownloader(
-        MicrosoftVisualCppRedistributable redistributable,
-        Path downloadFileName,
-        Path workingDirectory
+        MicrosoftVisualCppRedistributable redistributable, Path downloadFilePath
     ) {
         this.redistributable = Objects.requireNonNull(redistributable);
-        this.absoluteDownloadFilepath =
-            Objects.requireNonNull(workingDirectory).resolve(Objects.requireNonNull(downloadFileName));
+        this.downloadFilePath = Objects.requireNonNull(downloadFilePath);
     }
 
     @Override
@@ -56,7 +53,7 @@ public class MicrosoftVisualCppRedistributableDownloader implements Downloader {
             InputStream urlStream = redistributable.downloadInfo().downloadUri().toURL().openStream();
             ReadableByteChannel readableByteChannel = Channels.newChannel(urlStream);
             FileOutputStream fileOutputStream = new FileOutputStream(
-                Files.createFile(absoluteDownloadFilepath).toFile())
+                Files.createFile(downloadFilePath).toFile())
         ) {
             FileChannel fileChannel = fileOutputStream.getChannel();
             return fileChannel.transferFrom(readableByteChannel, 0, Long.MAX_VALUE);

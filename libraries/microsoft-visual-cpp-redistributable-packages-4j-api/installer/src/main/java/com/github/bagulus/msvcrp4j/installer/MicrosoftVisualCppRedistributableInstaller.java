@@ -36,24 +36,21 @@ import java.util.stream.Stream;
 public class MicrosoftVisualCppRedistributableInstaller implements Installer {
 
     private final MicrosoftVisualCppRedistributable redistributable;
-    private final Path absoluteDownloadFilepath;
+    private final Path installationFilePath;
 
 
     public MicrosoftVisualCppRedistributableInstaller(
-        MicrosoftVisualCppRedistributable redistributable,
-        Path installationFileName,
-        Path workingDirectory
+        MicrosoftVisualCppRedistributable redistributable, Path installationFilePath
     ) {
-        this.redistributable = redistributable;
-        this.absoluteDownloadFilepath =
-            Objects.requireNonNull(workingDirectory).resolve(Objects.requireNonNull(installationFileName));
+        this.redistributable = Objects.requireNonNull(redistributable);
+        this.installationFilePath = Objects.requireNonNull(installationFilePath);
     }
 
     @Override
     public void install() throws InstallationFailedException {
         String[] command = Stream
             .concat(
-                Arrays.stream(new String[]{String.valueOf(absoluteDownloadFilepath)}),
+                Arrays.stream(new String[]{String.valueOf(installationFilePath)}),
                 Arrays.stream(redistributable.installationInfo().getInstallationParameters()))
             .toArray(String[]::new);
         try {

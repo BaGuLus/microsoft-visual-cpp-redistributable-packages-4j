@@ -133,9 +133,9 @@ class MicrosoftVisualCppRedistributableFactory {
 
         DownloadInfo downloadInfo = new DownloadInfo(
             URI.create(
-                "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x86.EXE")
+                "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x86.exe")
         );
-        // TODO: RegistryKey not created
+
         RegistryKey registryKey = RegistryKey.HKEY_LOCAL_MACHINE.resolve(
             "SOFTWARE\\Classes\\Installer\\Products\\6E815EB96CCE9A53884E7857C57002F0");
 

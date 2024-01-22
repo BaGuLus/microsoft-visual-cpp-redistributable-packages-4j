@@ -25,6 +25,7 @@
 package com.github.bagulus.msvcrp4j.model;
 
 
+import com.github.bagulus.msvcrp4j.model.InstallationInfo.InstallationParameters;
 import com.github.bagulus.msvcrp4j.resolver.installation.InstallationResolverFactory;
 import com.github.bagulus.msvcrp4j.resolver.version.VersionResolverFactory;
 import com.github.robtimus.os.windows.registry.RegistryKey;
@@ -59,7 +60,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\Classes\\Installer\\Products\\1af2a8da7e60d0b429d7e6453b3d0182");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            InstallationInfo.INSTALLATION_PARAMETERS_2005,
+            InstallationParameters.Y2005,
             InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createDWordRegistryVersionResolver(registryKey)
         );
@@ -86,7 +87,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\Classes\\Installer\\Products\\c1c4f01781cc94c4c8fb1542c0981a2a");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            InstallationInfo.INSTALLATION_PARAMETERS_2005,
+            InstallationParameters.Y2005,
             InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createDWordRegistryVersionResolver(registryKey)
         );
@@ -113,7 +114,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\Classes\\Installer\\Products\\67D6ECF5CD5FBA732B8B22BAC8DE1B4D");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            InstallationInfo.INSTALLATION_PARAMETERS_2008,
+            InstallationParameters.Y2008,
             InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createProductNameRegistryVersionResolver(registryKey)
         );
@@ -140,7 +141,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\Classes\\Installer\\Products\\6E815EB96CCE9A53884E7857C57002F0");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            InstallationInfo.INSTALLATION_PARAMETERS_2008,
+            InstallationParameters.Y2008,
             InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createProductNameRegistryVersionResolver(registryKey)
         );
@@ -167,7 +168,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\Classes\\Installer\\Products\\1926E8D15D0BCE53481466615F760A7F");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            InstallationInfo.INSTALLATION_PARAMETERS_2010,
+            InstallationParameters.Y2010,
             InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createProductNameRegistryVersionResolver(registryKey)
         );
@@ -194,7 +195,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\Classes\\Installer\\Products\\1D5E3C0FEDA1E123187686FED06E995A");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            InstallationInfo.INSTALLATION_PARAMETERS_2010,
+            InstallationParameters.Y2010,
             InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createProductNameRegistryVersionResolver(registryKey)
         );
@@ -221,7 +222,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\Classes\\Installer\\Dependencies\\{ca67548a-5ebe-413a-b50c-4b9ceb6d66c6}");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            InstallationInfo.INSTALLATION_PARAMETERS_2012,
+            InstallationParameters.Y2012,
             InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createStringRegistryVersionResolver(registryKey)
         );
@@ -248,7 +249,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\Classes\\Installer\\Dependencies\\{33d1fd90-4274-48a1-9bc1-97e33d9c2d6f}");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            InstallationInfo.INSTALLATION_PARAMETERS_2012,
+            InstallationParameters.Y2012,
             InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createStringRegistryVersionResolver(registryKey)
         );
@@ -274,7 +275,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\Classes\\Installer\\Dependencies\\{042d26ef-3dbe-4c25-95d3-4c1b11b235a7}");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            InstallationInfo.INSTALLATION_PARAMETERS_2013,
+            InstallationParameters.Y2013,
             InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createStringRegistryVersionResolver(registryKey)
         );
@@ -300,7 +301,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\Classes\\Installer\\Dependencies\\{9dff3540-fc85-4ed5-ac84-9e3c7fd8bece}");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            InstallationInfo.INSTALLATION_PARAMETERS_2013,
+            InstallationParameters.Y2013,
             InstallationResolverFactory.createRegistryKeyExistsInstallationResolver(registryKey),
             VersionResolverFactory.createStringRegistryVersionResolver(registryKey)
         );
@@ -326,7 +327,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            InstallationInfo.INSTALLATION_PARAMETERS_2015PLUS,
+            InstallationParameters.Y2015PLUS,
             InstallationResolverFactory.createRegistryInstalledValueSetInstallationResolver(registryKey),
             VersionResolverFactory.createStringRegistryVersionResolver(registryKey)
         );
@@ -352,7 +353,7 @@ class MicrosoftVisualCppRedistributableFactory {
             "SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x86");
 
         InstallationInfo installationInfo = new InstallationInfo(
-            InstallationInfo.INSTALLATION_PARAMETERS_2015PLUS,
+            InstallationParameters.Y2015PLUS,
             InstallationResolverFactory.createRegistryInstalledValueSetInstallationResolver(registryKey),
             VersionResolverFactory.createStringRegistryVersionResolver(registryKey)
         );

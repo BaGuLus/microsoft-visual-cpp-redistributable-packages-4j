@@ -33,19 +33,12 @@ import java.util.Optional;
 
 public class InstallationInfo {
 
-    public static final String[] INSTALLATION_PARAMETERS_2005 = new String[]{"/Q"};
-    public static final String[] INSTALLATION_PARAMETERS_2008 = new String[]{"/q"};
-    public static final String[] INSTALLATION_PARAMETERS_2010 = new String[]{"/q", "/norestart"};
-    public static final String[] INSTALLATION_PARAMETERS_2012 = new String[]{"/install", "/quiet", "/norestart"};
-    public static final String[] INSTALLATION_PARAMETERS_2013 = INSTALLATION_PARAMETERS_2012;
-    public static final String[] INSTALLATION_PARAMETERS_2015PLUS = INSTALLATION_PARAMETERS_2012;
-
-    private final String[] installationParameters;
+    private final InstallationParameters installationParameters;
     private final InstallationResolver installationResolver;
     private final VersionResolver versionResolver;
 
     public InstallationInfo(
-        String[] installationParameters,
+        InstallationParameters installationParameters,
         InstallationResolver installationResolver,
         VersionResolver versionResolver
     ) {
@@ -55,7 +48,7 @@ public class InstallationInfo {
     }
 
     public String[] getInstallationParameters() {
-        return installationParameters;
+        return installationParameters.getParameters();
     }
 
     public boolean isInstalled() {
@@ -78,24 +71,41 @@ public class InstallationInfo {
             return false;
         }
         InstallationInfo that = (InstallationInfo) o;
-        return Arrays.equals(installationParameters, that.installationParameters) && Objects.equals(
+        return Objects.equals(installationParameters, that.installationParameters) && Objects.equals(
             installationResolver, that.installationResolver) && Objects.equals(versionResolver,
             that.versionResolver);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(installationResolver, versionResolver);
-        result = 31 * result + Arrays.hashCode(installationParameters);
-        return result;
+        return 31 * Objects.hash(installationResolver, versionResolver, installationParameters);
     }
 
     @Override
     public String toString() {
         return "InstallationInfo{" +
-            "installationParameters=" + Arrays.toString(installationParameters) +
+            "installationParameters=" + Arrays.toString(installationParameters.getParameters()) +
             ", installationCheckHandler=" + installationResolver +
             ", versionGetter=" + versionResolver +
             '}';
+    }
+
+    public enum InstallationParameters {
+        Y2005("/Q"),
+        Y2008("/q"),
+        Y2010("/q", "/norestart"),
+        Y2012("/install", "/quiet", "/norestart"),
+        Y2013("/install", "/quiet", "/norestart"),
+        Y2015PLUS("/install", "/quiet", "/norestart");
+
+        final String[] parameters;
+
+        InstallationParameters(String... parameters) {
+            this.parameters = parameters;
+        }
+
+        public String[] getParameters() {
+            return parameters;
+        }
     }
 }

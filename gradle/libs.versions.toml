@@ -1,4 +1,4 @@
 [libraries]
-jcommander = "org.jcommander:jcommander:1.83"
+jcommander = "org.jcommander:jcommander:2.0"
 semver4j = "org.semver4j:semver4j:5.4.1"
 windows-registry = "com.github.robtimus:windows-registry:1.1"

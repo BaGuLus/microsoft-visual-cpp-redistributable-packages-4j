@@ -26,10 +26,10 @@ package com.github.bagulus.msvcrp4j.model;
 
 import com.github.bagulus.msvcrp4j.resolver.installation.InstallationResolver;
 import com.github.bagulus.msvcrp4j.resolver.version.VersionResolver;
-import com.vdurmont.semver4j.Semver;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
+import org.semver4j.Semver;
 
 public class InstallationInfo {
 

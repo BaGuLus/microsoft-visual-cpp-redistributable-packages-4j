@@ -36,7 +36,6 @@ import com.github.bagulus.msvcrp4j.model.InstallationInfo;
 import com.github.bagulus.msvcrp4j.model.MicrosoftVisualCppRedistributable;
 import com.github.bagulus.msvcrp4j.model.ProcessorArchitecture;
 import com.github.bagulus.msvcrp4j.model.Release;
-import com.vdurmont.semver4j.Semver;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.FileVisitResult;
@@ -49,6 +48,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Optional;
+import org.semver4j.Semver;
 
 /**
  * Command line application which installs the specified Microsoft Visual C++ Redistributable Packages.<br> Firstly, the
@@ -65,6 +65,7 @@ import java.util.Optional;
  */
 @SuppressWarnings("squid:S106")
 public class MicrosoftVisualCppRedistributableDeploymentApp {
+
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private static int deploymentsSkipped = 0;
@@ -123,7 +124,7 @@ public class MicrosoftVisualCppRedistributableDeploymentApp {
                 """, e, currentTime()));
             return;
         }
-        
+
         for (MicrosoftVisualCppRedistributable redistributable : redistributables) {
             Path fileName = createFileName(redistributable.release(), redistributable.processorArchitecture());
             deploy(redistributable, fileName, workingDirectory);
